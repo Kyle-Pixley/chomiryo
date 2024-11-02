@@ -15,3 +15,16 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+#top-banner-bottom-border {
+    font-size: 25px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 1vw;
+}
+#create-recipe-button, #logout-button {
+    cursor: pointer;
+}
+#create-recipe-button {
+    margin-right: 2.5vw;
+}
