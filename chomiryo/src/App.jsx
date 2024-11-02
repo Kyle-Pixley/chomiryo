@@ -23,7 +23,8 @@ function App() {
       ? <Auth 
           updateLocalStorage={updateLocalStorage} />
       : <FrontPage 
-          sessionToken={sessionToken} />
+          sessionToken={sessionToken}
+          logout={logout} />
   }
 
   const logout = () => {
@@ -33,7 +34,7 @@ function App() {
 
   return (
     <>
-      { sessionToken && <button id='logout' onClick={logout}>Logout</button>} 
+      {/* { sessionToken && <button id='logout' onClick={logout}>Logout</button>}  */}
       {handleLoggedIn()}
     </>
   )

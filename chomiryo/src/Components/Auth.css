@@ -1,12 +1,54 @@
 #auth-component {
+    height: 100vh;
+    overflow-x: hidden;
+}
+#auth-title {
+    font-size: 17vw;
+    margin-top: 10vh;
+    margin-bottom: 8vh;
+}
+#auth-form-container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
+    height: fit-content;
 }
-
+button, .input {
+    align-self: center;
+    height: 30px;
+    margin-top: 2vh;
+}
+button {
+    width: 30vw;
+    font-size: 17px;
+    border-radius: 12px;
+    border-top: 1px solid white;
+    border-left: 1px solid white;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    box-shadow: 3px 3px 2px darkgray, inset 3px 3px 2px whitesmoke;
+    background-color: silver;
+}
+button:active {
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-bottom: 1px solid white;
+    border-right: 1px solid white;
+    box-shadow: 3px 3px 2px whitesmoke, inset 3px 3px 2px darkgray;
+    background-color: silver;
+}
+button:hover {
+    cursor: pointer;
+}
+.input {
+    width: 29vw;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+}
 #form-parent {
     display: flex;
     flex-direction: column;
 }
+

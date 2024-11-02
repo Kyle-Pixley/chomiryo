@@ -79,39 +79,40 @@ function Auth({ updateLocalStorage }) {
   return (
     <div id='auth-component'> 
         <div id='auth-title-text'>
-            <h1 id='auth-title'>Chomiryo</h1>
+            <h1 id='auth-title'>CHOMIRYO</h1>
         </div>
-
-        <button 
-            id='signup-button'
-            onClick={toggle}
-        >{ login ? "To Signup" : "To Login" }</button>
-
-        <form action='' id='form-parent'>
-            <p id='auth-error-message'>{errorMessageSimple()}</p>
-            {register()}
-            <input
-                type='text'
-                id='user-name-input'
-                className='input'
-                value={userName}
-                onChange={e => setUserName(e.target.value)}
-                placeholder='Enter Username'
-                />
-            <input
-                type='password'
-                id='password-input'
-                className='input'
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-                placeholder='Enter Password'
-                />
+        <div id='auth-form-container'>
             <button 
-                id='auth-submit-button'
-                type='submit'
-                onClick={handleSubmit}
-                >{ login ? "Sign In" : "Register" }</button>
-        </form>
+                id='signup-button'
+                onClick={toggle}
+                >{ login ? "TO SIGNUP" : "TO LOGIN" }</button>
+
+            <form action='' id='form-parent'>
+                <p id='auth-error-message'>{errorMessageSimple()}</p>
+                {register()}
+                <input
+                    type='text'
+                    id='user-name-input'
+                    className='input'
+                    value={userName}
+                    onChange={e => setUserName(e.target.value)}
+                    placeholder='Enter Username'
+                    />
+                <input
+                    type='password'
+                    id='password-input'
+                    className='input'
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    placeholder='Enter Password'
+                    />
+                <button 
+                    id='auth-submit-button'
+                    type='submit'
+                    onClick={handleSubmit}
+                    >{ login ? "SIGN IN" : "REGISTER" }</button>
+            </form>
+        </div>
     </div>
   )
 }
