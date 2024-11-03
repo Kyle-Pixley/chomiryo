@@ -12,6 +12,11 @@ const Post = new mongoose.Schema (
             type: String,
             required: true
         },
+        rating: {
+            type: Number,
+            min: 0,
+            max: 5
+        },
         instructions: {
             ingredients: {
                 type: Array,

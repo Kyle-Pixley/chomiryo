@@ -49,5 +49,13 @@ router.put("/updatepost/:id", sessionValidation, async (req, res) => {
     }
 });
 //todo make get all posts + search posts 
+router.get('/', sessionValidation, async (req, res) => {
+    try {
+        const posts = await Post.find({})
+    } catch(err) {
+        console.log(err);
+        res.status(500).json({ message: `Error: Could not get Posts`})
+    }
+})
 
 module.exports = router;
