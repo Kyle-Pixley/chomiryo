@@ -1,5 +1,5 @@
 import React from 'react';
-
+import RecipeList from './RecipesList/RecipeList';
 import './FrontPage.css';
 
 function FrontPage({ logout }) {
@@ -15,7 +15,7 @@ function FrontPage({ logout }) {
                 onClick={logout}>Logout</p>
         </div>
         FrontPage
-        
+        <RecipeList />
     </div>
   )
 }

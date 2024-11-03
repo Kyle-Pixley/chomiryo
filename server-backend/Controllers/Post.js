@@ -47,6 +47,7 @@ router.put("/updatepost/:id", sessionValidation, async (req, res) => {
         console.log(err);
         res.status(500).json({ message: "Error could not update recipe"})
     }
-})
+});
+//todo make get all posts + search posts 
 
 module.exports = router;

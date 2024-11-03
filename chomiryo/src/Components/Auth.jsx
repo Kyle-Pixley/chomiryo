@@ -95,7 +95,7 @@ function Auth({ updateLocalStorage }) {
                     id='user-name-input'
                     className='input'
                     value={userName}
-                    onChange={e => setUserName(e.target.value)}
+                    onChange={e => setUserName(e.target.value.trim())}
                     placeholder='Enter Username'
                     />
                 <input
