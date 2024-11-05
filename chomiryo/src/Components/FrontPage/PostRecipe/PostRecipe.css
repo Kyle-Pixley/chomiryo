@@ -15,3 +15,7 @@
 .post-recipe-inputs {
     font-size: 20px;
 }
+#add-delete-ingredients-parent > button {
+    height: 8vh;
+    width: 16vw;
+}
