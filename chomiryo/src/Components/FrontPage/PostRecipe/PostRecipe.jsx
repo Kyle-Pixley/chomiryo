@@ -5,21 +5,35 @@ function PostRecipe() {
 
     const [ recipeTitle, setRecipeTitle ] = useState('');
     const [ ingredients, setIngredients ] = useState(['1 cup of milk']);
-    const [ recipeSteps, setRecipeSteps ] = useState([]);
+    const [ recipeSteps, setRecipeSteps ] = useState(['Preheat oven to 350 degrees fahrenheit']);
 
     const addIngredient = e => {
-        e.preventDefault()
+        e.preventDefault();
         setIngredients([...ingredients, '']);
-        console.log(ingredients)
+        console.log(ingredients);
+    }
+    const addSteps = e => {
+        e.preventDefault();
+        setRecipeSteps([...recipeSteps, '']);
+        console.log(recipeSteps);
     }
     const deleteLastIngredient = e => {
         e.preventDefault();
         setIngredients(prevIngredients => prevIngredients.slice(0, -1));
     }
+    const deleteLastStep = e => {
+        e.preventDefault();
+        setRecipeSteps(prevRecipeSteps => prevRecipeSteps.slice(0,-1));
+    }
     const handleIngredientChange = (i,e) => {
         const newIngredients = [...ingredients];
         newIngredients[i] = e.target.value;
         setIngredients(newIngredients);
+    }
+    const handleRecipeStepChange = (i,e) => {
+        const newRecipeSteps = [...recipeSteps];
+        newRecipeSteps[i] = e.target.value;
+        setRecipeSteps(newRecipeSteps)
     }
 
   return (
@@ -61,6 +75,32 @@ function PostRecipe() {
                     id='delete-ingredients-input-button'
                     onClick={deleteLastIngredient}>
                         Delete Last Ingredient
+                </button>
+            </div>
+            <label 
+                className='post-recipe-labels' >
+                    Steps
+            </label>
+            { recipeSteps.map((steps, i) => (
+                <input
+                    key={i}
+                    className='post-recipe-inputs'
+                    type='text'
+                    value={steps}
+                    onChange={e => handleRecipeStepChange(i,e)}
+                    placeholder={`Step #${i+1}`}>
+                </input>
+            ))}
+            <div id='add-delete-steps-parent'>
+                <button
+                    id='add-steps-input-button'
+                    onClick={addSteps}>
+                        Add Step
+                </button>
+                <button
+                    id='delete-step-input-button'
+                    onClick={deleteLastStep}>
+                        Delete Last Step
                 </button>
             </div>
 
