@@ -7,6 +7,8 @@ function App() {
 
   const [ sessionToken, setSessionToken ] = useState(undefined);
 
+  const [ postRecipe, setPostRecipe ] = useState(false);
+
   useEffect(() => {
     if (localStorage.getItem("token")) {
       setSessionToken(localStorage.getItem("token"))
@@ -23,6 +25,8 @@ function App() {
       ? <Auth 
           updateLocalStorage={updateLocalStorage} />
       : <FrontPage 
+          postRecipe={postRecipe}
+          setPostRecipe={setPostRecipe}
           sessionToken={sessionToken}
           logout={logout} />
   }

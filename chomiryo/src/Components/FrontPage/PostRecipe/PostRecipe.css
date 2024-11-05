@@ -1,0 +1,17 @@
+#post-recipe-component {
+    border: 1px solid green;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#post-recipe-form {
+    display: flex;
+    flex-direction: column;
+}
+.post-recipe-labels {
+    text-align: center;
+}
+.post-recipe-inputs {
+    font-size: 20px;
+}
