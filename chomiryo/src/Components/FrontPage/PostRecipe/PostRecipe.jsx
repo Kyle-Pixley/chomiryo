@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { jwtDecode } from 'jwt-decode';
 import './PostRecipe.css';
 
 function PostRecipe() {
@@ -6,6 +7,7 @@ function PostRecipe() {
     const [ recipeTitle, setRecipeTitle ] = useState('');
     const [ ingredients, setIngredients ] = useState(['1 cup of milk']);
     const [ recipeSteps, setRecipeSteps ] = useState(['Preheat oven to 350 degrees fahrenheit']);
+    const [ instructions, setInstructions ] = useState({ingredients:[ingredients],recipeSteps:[recipeSteps]});
 
     const addIngredient = e => {
         e.preventDefault();
@@ -34,6 +36,43 @@ function PostRecipe() {
         const newRecipeSteps = [...recipeSteps];
         newRecipeSteps[i] = e.target.value;
         setRecipeSteps(newRecipeSteps)
+    }
+    useEffect(() => {
+        setInstructions({ingredients: ingredients, steps: recipeSteps})
+    }, [ingredients, recipeSteps])
+
+    const getUserById = () => {
+        try {
+            const sessionToken = localStorage.getItem('token');
+            const decodedToken = jwtDecode(sessionToken)
+            // ! why is this not triggering?
+            console.log('something')
+            return decodedToken._id;
+        } catch (err) {
+            console.log(`error decoding`, err)
+        }
+    }
+    
+
+    const handlePostSubmit = e => {
+        e.preventDefault();
+
+        const url = "http://127.0.0.1:4000/post/create"
+
+        const body = { title: recipeTitle, instructions: instructions };
+        console.log('this is the body ', body);
+
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: new Headers({
+                "Content-Type" : "application/json",
+                "Authorization" : `Bearer `
+            })
+        })
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(err => console.error("Error: ", err))
     }
 
   return (
@@ -103,7 +142,11 @@ function PostRecipe() {
                         Delete Last Step
                 </button>
             </div>
-
+            <button
+                type='submit'
+                onClick={handlePostSubmit}>
+                    Upload Recipe
+            </button>
         </form>
     </div>
   )

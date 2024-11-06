@@ -7,7 +7,7 @@ router.post("/create", sessionValidation, async (req, res) => {
         const { title, instructions } = req.body;
 
         if (!title || !instructions.ingredients || !instructions.steps) throw Error("Please provide all information for the recipe.");
-
+        console.log(req.user)
         const newPost = new Post({
             user: req.user.id,
             title,
