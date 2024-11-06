@@ -1,10 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import RecipeList from './RecipesList/RecipeList';
 import PostRecipe from './PostRecipe/PostRecipe';
+import PostCreated from './PostCreated/PostCreated';
 import './FrontPage.css';
 
 function FrontPage({ logout, postRecipe, setPostRecipe }) {
 
+    const [ postCreated, setPostCreated ] = useState(false);
+
+    useEffect(() => {
+        if(postCreated) {
+            setTimeout(() => {
+                setPostRecipe(false);
+                setPostCreated(false);
+            }, 5000)
+        }
+    }, [ postCreated])
+
+    const displayFrontPage = () => {
+        if(postCreated) {
+            return <PostCreated />
+        } else if(postRecipe) {
+            return <PostRecipe 
+                        setPostCreated={setPostCreated}/>
+        } else return <RecipeList />
+    }
 
     
   return (
@@ -19,9 +39,7 @@ function FrontPage({ logout, postRecipe, setPostRecipe }) {
                 onClick={logout}>Logout</p>
         </div>
         FrontPage
-        {postRecipe 
-            ? <PostRecipe />
-            : <RecipeList />}
+        {displayFrontPage()}
     </div>
   )
 }

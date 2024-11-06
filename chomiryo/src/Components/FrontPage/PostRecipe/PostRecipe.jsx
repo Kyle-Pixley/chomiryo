@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import './PostRecipe.css';
 
-function PostRecipe() {
+function PostRecipe({ setPostCreated }) {
 
     const [ recipeTitle, setRecipeTitle ] = useState('');
     const [ ingredients, setIngredients ] = useState(['1 cup of milk']);
@@ -10,7 +10,7 @@ function PostRecipe() {
     const [ instructions, setInstructions ] = useState({ingredients:[ingredients],recipeSteps:[recipeSteps]});
 
     const addIngredient = e => {
-        e.preventDefault();
+        e.preventDefault(); 
         setIngredients([...ingredients, '']);
         console.log(ingredients);
     }
@@ -67,11 +67,12 @@ function PostRecipe() {
             body: JSON.stringify(body),
             headers: new Headers({
                 "Content-Type" : "application/json",
-                "Authorization" : `Bearer `
+                "Authorization" : `Bearer ${localStorage.getItem('token')}`
             })
         })
         .then(res => res.json())
         .then(data => console.log(data))
+        .then(setPostCreated(true))
         .catch(err => console.error("Error: ", err))
     }
 
