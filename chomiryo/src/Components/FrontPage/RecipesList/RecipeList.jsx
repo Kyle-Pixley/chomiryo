@@ -16,15 +16,16 @@ function RecipeList() {
     }
     fetch(url, options)
       .then(res => res.json())
-      .then(data => console.log(data))
       .then(data => setAllRecipes(data))
       .catch(err => err.message)
   }, [])
 
     
   return (
-    <div>
-        recipeList
+    <div id='recipe-list-component'>
+        { allRecipes.map((recipe, i) => (
+          <h3 key={recipe._id}>{recipe.title}</h3>
+        ))}
     </div>
   )
 }
