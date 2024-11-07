@@ -4,7 +4,7 @@ import PostRecipe from './PostRecipe/PostRecipe';
 import PostCreated from './PostCreated/PostCreated';
 import './FrontPage.css';
 
-function FrontPage({ logout, postRecipe, setPostRecipe }) {
+function FrontPage({ logout, postRecipe, setPostRecipe, lookingAtRecipe, setLookingAtRecipe }) {
 
     const [ postCreated, setPostCreated ] = useState(false);
 
@@ -23,7 +23,9 @@ function FrontPage({ logout, postRecipe, setPostRecipe }) {
         } else if(postRecipe) {
             return <PostRecipe 
                         setPostCreated={setPostCreated}/>
-        } else return <RecipeList />
+        } else return <RecipeList 
+                        lookingAtRecipe={lookingAtRecipe}
+                        setLookingAtRecipe={setLookingAtRecipe} />
     }
 
     
@@ -38,7 +40,6 @@ function FrontPage({ logout, postRecipe, setPostRecipe }) {
                 id='logout-button'
                 onClick={logout}>Logout</p>
         </div>
-        FrontPage
         {displayFrontPage()}
     </div>
   )

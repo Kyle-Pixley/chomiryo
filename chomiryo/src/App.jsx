@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate, Routes, Route } from 'react-router-dom';
 import Auth from './Components/Auth';
 import FrontPage from './Components/FrontPage/FrontPage';
-import './App.css'
+import Recipe from './Components/FrontPage/RecipesList/Recipe/Recipe';
+import './App.css';
 
 function App() {
 
   const [ sessionToken, setSessionToken ] = useState(undefined);
-
   const [ postRecipe, setPostRecipe ] = useState(false);
+  const [ lookingAtRecipe, setLookingAtRecipe ] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -27,10 +30,13 @@ function App() {
       : <FrontPage 
           postRecipe={postRecipe}
           setPostRecipe={setPostRecipe}
+          lookingAtRecipe={lookingAtRecipe}
+          setLookingAtRecipe={setLookingAtRecipe}
           sessionToken={sessionToken}
           logout={logout} />
   }
 
+  // clears local storage to log out the user
   const logout = () => {
     localStorage.clear();
     setSessionToken(undefined);
@@ -38,8 +44,14 @@ function App() {
 
   return (
     <>
-      {/* { sessionToken && <button id='logout' onClick={logout}>Logout</button>}  */}
-      {handleLoggedIn()}
+      <Routes>
+        <Route 
+          path="/" 
+          element={handleLoggedIn()} />
+        <Route 
+          path="/recipe" 
+          element={<Recipe />} />
+      </Routes>
     </>
   )
 }

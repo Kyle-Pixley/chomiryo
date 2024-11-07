@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './RecipeList.css';
 
-function RecipeList() {
+function RecipeList({ lookingAtRecipe, setLookingAtRecipe}) {
+
+  const navigate = useNavigate();
 
   const [ allRecipes, setAllRecipes ] = useState([]);
+
+  //navigates to the individual recipe page using the recipe id that is passed through 
+  const handleRecipeClick = (recipeId) => {
+    navigate('/recipe', { state: { recipeId } });
+  }
 
   useEffect(() => {
     const url = "http://127.0.0.1:4000/post/"
@@ -39,7 +47,9 @@ function RecipeList() {
         <div id='recipe-parent'>
             {allRecipes.map((recipe, i) => (
               <div id='individual-recipe'>
-                <div id='recipe-image'></div>
+                <div 
+                  id='recipe-image'
+                  onClick={() => handleRecipeClick(recipe._id)}></div>
                 <h3 
                   id='recipe-title'
                   key={recipe._id}>
