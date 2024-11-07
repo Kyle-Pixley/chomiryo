@@ -50,8 +50,14 @@ router.put("/updatepost/:id", sessionValidation, async (req, res) => {
 });
 //todo make get all posts + search posts 
 router.get('/', sessionValidation, async (req, res) => {
+    console.log('route hit')
     try {
-        const posts = await Post.find({})
+        const posts = 
+            await Post.find({})
+                .populate("user", "userName")
+        if (posts.length === 0) throw Error("No posts found");
+        res.status(200).json(posts)
+
     } catch(err) {
         console.log(err);
         res.status(500).json({ message: `Error: Could not get Posts`})
