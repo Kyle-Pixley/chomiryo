@@ -5,13 +5,15 @@ const sessionValidation = require("../Middlewares/Session");
 router.post("/create", sessionValidation, async (req, res) => {
     try {
         const { title, instructions } = req.body;
+        const rating = 0;
 
         if (!title || !instructions.ingredients || !instructions.steps) throw Error("Please provide all information for the recipe.");
         console.log(req.user)
         const newPost = new Post({
             user: req.user.id,
             title,
-            instructions
+            instructions,
+            rating
         });
 
         const savedPost = await newPost.save();
@@ -26,6 +28,7 @@ router.post("/create", sessionValidation, async (req, res) => {
     }
 });
 
+//update post and find the post by id
 router.put("/updatepost/:id", sessionValidation, async (req, res) => {
     try {
         const postId = req.params.id;
@@ -48,9 +51,8 @@ router.put("/updatepost/:id", sessionValidation, async (req, res) => {
         res.status(500).json({ message: "Error could not update recipe"})
     }
 });
-//todo make get all posts + search posts 
+//todo make search posts by ingredients 
 router.get('/', sessionValidation, async (req, res) => {
-    console.log('route hit')
     try {
         const posts = 
             await Post.find({})
@@ -62,6 +64,23 @@ router.get('/', sessionValidation, async (req, res) => {
         console.log(err);
         res.status(500).json({ message: `Error: Could not get Posts`})
     }
-})
+});
+
+router.get('/:id', sessionValidation, async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const recipe = await Post.findById(id);
+
+        if(!recipe) {
+            return res.status(404).json({ error: 'Recipe Not Found'});
+        };
+
+        res.json(recipe);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server Error'});
+    }
+});
 
 module.exports = router;

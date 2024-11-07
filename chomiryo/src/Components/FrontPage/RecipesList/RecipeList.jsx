@@ -20,12 +20,35 @@ function RecipeList() {
       .catch(err => err.message)
   }, [])
 
-    
+    useEffect(() => {
+      console.log(allRecipes)
+    }, [allRecipes])
+
+    const handleRecipeRatingDisplay = (rating) => {
+      if(rating >= 0 && rating <= 1) {
+        return 'Bad'
+      }
+    }
+
+
   return (
     <div id='recipe-list-component'>
-        { allRecipes.map((recipe, i) => (
+        {/* { allRecipes.map((recipe, i) => (
           <h3 key={recipe._id}>{recipe.title}</h3>
-        ))}
+        ))} */}
+        <div id='recipe-parent'>
+            {allRecipes.map((recipe, i) => (
+              <div id='individual-recipe'>
+                <div id='recipe-image'></div>
+                <h3 
+                  id='recipe-title'
+                  key={recipe._id}>
+                    {recipe.title}
+                </h3>
+                <span id='recipe-rating'>{handleRecipeRatingDisplay(recipe.rating)}</span>
+              </div>
+            ))}
+        </div>
     </div>
   )
 }
