@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate, Routes, Route } from 'react-router-dom';
 import RecipeList from './RecipesList/RecipeList';
 import PostRecipe from './PostRecipe/PostRecipe';
 import PostCreated from './PostCreated/PostCreated';
+import Recipe from './RecipesList/Recipe/Recipe';
 import './FrontPage.css';
 
-function FrontPage({ logout, postRecipe, setPostRecipe, lookingAtRecipe, setLookingAtRecipe }) {
+function FrontPage({ logout, postRecipe, setPostRecipe }) {
 
     const [ postCreated, setPostCreated ] = useState(false);
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         if(postCreated) {
@@ -23,9 +27,16 @@ function FrontPage({ logout, postRecipe, setPostRecipe, lookingAtRecipe, setLook
         } else if(postRecipe) {
             return <PostRecipe 
                         setPostCreated={setPostCreated}/>
-        } else return <RecipeList 
-                        lookingAtRecipe={lookingAtRecipe}
-                        setLookingAtRecipe={setLookingAtRecipe} />
+        } else return <RecipeList />
+    }
+
+    const handlePostRecipeClick = () => {
+        setPostRecipe(!postRecipe);
+        navigate('/');
+    };
+    const handleLogout = () => {
+        logout();
+        navigate('/');
     }
 
     
@@ -35,12 +46,19 @@ function FrontPage({ logout, postRecipe, setPostRecipe, lookingAtRecipe, setLook
         <div id='top-banner-bottom-border'>
             <p 
                 id='create-recipe-button'
-                onClick={() => setPostRecipe(!postRecipe)}>{postRecipe ? 'Recipes' : 'Post Recipe'}</p>
+                onClick={handlePostRecipeClick}>{postRecipe ? 'Recipes' : 'Post Recipe'}</p>
             <p 
                 id='logout-button'
-                onClick={logout}>Logout</p>
+                onClick={handleLogout}>Logout</p>
         </div>
-        {displayFrontPage()}
+        <Routes>
+            <Route
+                path='/'
+                element={displayFrontPage()} />
+            <Route
+                path='/recipe'
+                element={<Recipe />} />
+        </Routes>
     </div>
   )
 }

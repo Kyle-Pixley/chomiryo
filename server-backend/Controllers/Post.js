@@ -66,6 +66,7 @@ router.get('/', sessionValidation, async (req, res) => {
     }
 });
 
+// retrieves one Post by id
 router.get('/:id', sessionValidation, async (req, res) => {
     try {
         const { id } = req.params;

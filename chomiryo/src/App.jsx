@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, Routes, Route } from 'react-router-dom';
 import Auth from './Components/Auth';
 import FrontPage from './Components/FrontPage/FrontPage';
-import Recipe from './Components/FrontPage/RecipesList/Recipe/Recipe';
 import './App.css';
 
 function App() {
@@ -10,7 +8,6 @@ function App() {
   const [ sessionToken, setSessionToken ] = useState(undefined);
   const [ postRecipe, setPostRecipe ] = useState(false);
   const [ lookingAtRecipe, setLookingAtRecipe ] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -44,14 +41,15 @@ function App() {
 
   return (
     <>
-      <Routes>
+      {handleLoggedIn()}
+      {/* <Routes>
         <Route 
           path="/" 
           element={handleLoggedIn()} />
         <Route 
           path="/recipe" 
           element={<Recipe />} />
-      </Routes>
+      </Routes> */}
     </>
   )
 }

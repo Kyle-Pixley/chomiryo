@@ -1,0 +1,19 @@
+#single-recipe-component {
+
+}
+#single-recipe-title-and-image, #ingredients-steps-parent {
+    display: flex;
+    height: fit-content;
+    margin: 1vw 5vw;
+}
+#single-recipe-image {
+    height: 15vw;
+    width: 20vw;
+}
+#single-recipe-title {
+    text-align: center;
+}
+#ingredients-steps-parent {
+    justify-content: space-between;
+    margin-top: 2.5vw;
+}

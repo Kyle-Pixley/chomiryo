@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './RecipeList.css';
 
-function RecipeList({ lookingAtRecipe, setLookingAtRecipe}) {
+function RecipeList() {
 
   const navigate = useNavigate();
 
