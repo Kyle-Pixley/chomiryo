@@ -12,10 +12,25 @@ const Post = new mongoose.Schema (
             type: String,
             required: true
         },
-        rating: {
+        ratings: {
+            type: [
+                {
+                    userId: { 
+                        type: mongoose.Schema.Types.ObjectId,
+                        ref: "User"
+                    },
+                    rating: { 
+                        type: Number,
+                        min: 1, 
+                        max: 5
+                    }
+                }
+            ],
+            default: []
+        },
+        averageRating: {
             type: Number,
-            min: 0,
-            max: 5
+            default: 0
         },
         instructions: {
             ingredients: {

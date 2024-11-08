@@ -21,7 +21,7 @@ function StarRating({ recipeRating}) {
                     className='star-image full-star-image'
                     src={Star} />
             )
-        } 
+        } else return 'Good'
     }
 
   return (
