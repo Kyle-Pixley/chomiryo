@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import StarRating from '../StarRating/StarRating';
 import { useNavigate } from 'react-router-dom';
 import './RecipeList.css';
 
@@ -32,13 +33,6 @@ function RecipeList() {
       console.log(allRecipes)
     }, [allRecipes])
 
-    const handleRecipeRatingDisplay = (rating) => {
-      if(rating >= 0 && rating <= 1) {
-        return 'Bad'
-      }
-    }
-
-
   return (
     <div id='recipe-list-component'>
         {/* { allRecipes.map((recipe, i) => (
@@ -55,7 +49,10 @@ function RecipeList() {
                   key={recipe._id}>
                     {recipe.title}
                 </h3>
-                <span id='recipe-rating'>{handleRecipeRatingDisplay(recipe.rating)}</span>
+                <span id='recipe-rating'>{
+                  <StarRating 
+                    recipeRating={recipe.rating}/>
+                }</span>
               </div>
             ))}
         </div>

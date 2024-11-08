@@ -8,6 +8,7 @@ function Recipe() {
     const recipeId = location.state?.recipeId;
     const [ singleRecipe, setSingleRecipe ] = useState({});
     const [ ingredientsList, setIngredientsList ] = useState([]);
+    const [ stepsList, setStepsList ] = useState([]);
 
     //fetches the single post based on the recipe._id aka recipeId
     useEffect(() => {
@@ -24,13 +25,12 @@ function Recipe() {
             .catch(err => err.message)
     }, []);
 
-    //! delete----------------------
     useEffect(() => {
         if(singleRecipe && singleRecipe.instructions) {
             setIngredientsList(singleRecipe.instructions.ingredients)
+            setStepsList(singleRecipe.instructions.steps)
         }
     }, [singleRecipe])
-    //!=============================
 
 
   return (
@@ -41,7 +41,7 @@ function Recipe() {
                 src={walnut} />
             <div style={{width: "100%", height: "100%"}}>
                 <h2 id='single-recipe-title'>
-                    {singleRecipe.title}
+                    {singleRecipe.title ? singleRecipe.title.toUpperCase() : 'loading...'}
                 </h2>
             </div>
 
@@ -50,14 +50,26 @@ function Recipe() {
             <div id='ingredients'>
                 <h3>Ingredients</h3>
                 {/* //todo this font sucks */}
-                {ingredientsList 
-                    ? ingredientsList.map(item =>(
-                        <h5>{item}</h5>
-                    )) 
-                    : "Loading..."}
+                <ul>
+
+                    {ingredientsList 
+                        ? ingredientsList.map(item =>(
+                            <li>{item}</li>
+                        )) 
+                        : "Loading..."}
+                </ul>
             </div>
             <div id='steps'>
                 <h3>Steps</h3>
+                <ol>
+                {stepsList
+                    ? stepsList.map((item,i) => (
+                            <li>
+                                {item}
+                            </li>
+                        ))
+                        : "Loading..."}
+                </ol>
             </div>
         </div>
     </div>
