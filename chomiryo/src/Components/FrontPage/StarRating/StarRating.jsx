@@ -21,8 +21,134 @@ function StarRating({ recipeRating}) {
                     className='star-image full-star-image'
                     src={Star} />
             )
-        } else return 'Good'
+        } else if (recipeRating >=1.3 && recipeRating < 1.8) {
+            return (
+                <div>
+                    <img
+                        className='star-image full-star-image'
+                        src={Star} />
+                    <img
+                        className='star-image half-star-image'
+                        src={HalfStar} />
+                </div>
+            )
+        } else if (recipeRating >= 1.8 && recipeRating < 2.3) {
+            return (
+                <div>
+                    <img
+                        className='star-image full-star-image'
+                        src={Star} />
+                        <img
+                        className='star-image full-star-image'
+                        src={Star} />
+                </div>
+            )
+        } else if (recipeRating >= 2.3 && recipeRating < 2.8) {
+            return (
+                <div>
+                    <img
+                        className='star-image full-star-image'
+                        src={Star} />
+                        <img
+                        className='star-image full-star-image'
+                        src={Star} />
+                        <img
+                        className='star-image half-star-image'
+                        src={HalfStar} />
+                </div>
+            )
+        } else if (recipeRating >= 2.8 && recipeRating < 3.3) {
+            return (
+                <div>
+                    <img
+                        className='star-image full-star-image'
+                        src={Star} />
+                        <img
+                        className='star-image full-star-image'
+                        src={Star} />
+                        <img
+                        className='star-image full-star-image'
+                        src={Star} />
+                </div>
+            )
+        } else if (recipeRating >= 3.3 && recipeRating < 3.8) {
+            return (
+                <div>
+                    <img
+                        className='star-image full-star-image'
+                        src={Star} />
+                        <img
+                        className='star-image full-star-image'
+                        src={Star} />
+                        <img
+                        className='star-image full-star-image'
+                        src={Star} />
+                        <img
+                        className='star-image half-star-image'
+                        src={HalfStar} />
+                </div>
+            )
+        } else if (recipeRating >= 3.8 && recipeRating < 4.3) {
+            return (
+                <div>
+                    <img
+                        className='star-image full-star-image'
+                        src={Star} />
+                        <img
+                        className='star-image full-star-image'
+                        src={Star} />
+                        <img
+                        className='star-image full-star-image'
+                        src={Star} />
+                        <img
+                        className='star-image full-star-image'
+                        src={Star} />
+                </div>
+            )
+        } else if (recipeRating >= 4.3 && recipeRating < 4.8) {
+            return (
+                <div>
+                    <img
+                        className='star-image full-star-image'
+                        src={Star} />
+                        <img
+                        className='star-image full-star-image'
+                        src={Star} />
+                        <img
+                        className='star-image full-star-image'
+                        src={Star} />
+                        <img
+                        className='star-image full-star-image'
+                        src={Star} />
+                        <img 
+                        className='star-image half-star-image'
+                        src={HalfStar} />
+                </div>
+            )
+        } else if (recipeRating >= 4.8) {
+            return (
+                <div>
+                    <img
+                        className='star-image full-star-image'
+                        src={Star} />
+                        <img
+                        className='star-image full-star-image'
+                        src={Star} />
+                        <img
+                        className='star-image full-star-image'
+                        src={Star} />
+                        <img
+                        className='star-image full-star-image'
+                        src={Star} />
+                        <img
+                        className='star-image full-star-image'
+                        src={Star} />
+                </div>
+            )
+        } else return "No Rating"
     }
+
+    //0=0 .1-.7=.5 .7-1.3=1
 
   return (
     <div>
@@ -31,4 +157,4 @@ function StarRating({ recipeRating}) {
   )
 }
 
-export default StarRating
+export default StarRating;

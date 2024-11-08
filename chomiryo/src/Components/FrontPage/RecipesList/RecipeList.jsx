@@ -51,7 +51,7 @@ function RecipeList() {
                 </h3>
                 <span id='recipe-rating'>{
                   <StarRating 
-                    recipeRating={recipe.rating}/>
+                    recipeRating={recipe.averageRating}/>
                 }</span>
               </div>
             ))}
