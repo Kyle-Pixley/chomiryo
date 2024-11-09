@@ -4,7 +4,7 @@ import HalfStar from '../../../assets/half-yellow-star.png';
 import './StarRating.css';
 
 
-function StarRating({ recipeRating}) {
+function StarRating({ recipeRating, viewingRecipePage }) {
 
     const handleRecipeRatingToStars = () => {
         if(recipeRating === 0) {
@@ -145,10 +145,15 @@ function StarRating({ recipeRating}) {
                         src={Star} />
                 </div>
             )
-        } else return "No Rating"
+        } else return editRating()
     }
 
-    //0=0 .1-.7=.5 .7-1.3=1
+    const editRating = () => {
+        if(viewingRecipePage) {
+            return 'viewing recipe page'
+            // this is where clicking and rating come into play
+        } else return 'not viewing recipe page'
+    }
 
   return (
     <div>

@@ -9,6 +9,7 @@ function App() {
   const [ postRecipe, setPostRecipe ] = useState(false);
   const [ lookingAtRecipe, setLookingAtRecipe ] = useState(false);
 
+
   useEffect(() => {
     if (localStorage.getItem("token")) {
       setSessionToken(localStorage.getItem("token"))
@@ -19,6 +20,8 @@ function App() {
     localStorage.setItem("token", newToken)
     setSessionToken(newToken)
   };
+
+
 
   const handleLoggedIn = () => {
     return !sessionToken
@@ -42,14 +45,6 @@ function App() {
   return (
     <>
       {handleLoggedIn()}
-      {/* <Routes>
-        <Route 
-          path="/" 
-          element={handleLoggedIn()} />
-        <Route 
-          path="/recipe" 
-          element={<Recipe />} />
-      </Routes> */}
     </>
   )
 }

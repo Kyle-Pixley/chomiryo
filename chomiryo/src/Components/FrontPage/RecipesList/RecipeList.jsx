@@ -3,15 +3,14 @@ import StarRating from '../StarRating/StarRating';
 import { useNavigate } from 'react-router-dom';
 import './RecipeList.css';
 
-function RecipeList() {
-
-  const navigate = useNavigate();
+function RecipeList({ viewingRecipePage }) {
 
   const [ allRecipes, setAllRecipes ] = useState([]);
+  const navigate = useNavigate();
 
   //navigates to the individual recipe page using the recipe id that is passed through 
   const handleRecipeClick = (recipeId) => {
-    navigate('/recipe', { state: { recipeId } });
+    navigate('/recipe', { state: { recipeId }});
   }
 
   useEffect(() => {
@@ -35,9 +34,6 @@ function RecipeList() {
 
   return (
     <div id='recipe-list-component'>
-        {/* { allRecipes.map((recipe, i) => (
-          <h3 key={recipe._id}>{recipe.title}</h3>
-        ))} */}
         <div id='recipe-parent'>
             {allRecipes.map((recipe, i) => (
               <div id='individual-recipe'>
@@ -51,7 +47,8 @@ function RecipeList() {
                 </h3>
                 <span id='recipe-rating'>{
                   <StarRating 
-                    recipeRating={recipe.averageRating}/>
+                    recipeRating={recipe.averageRating}
+                    viewingRecipePage={viewingRecipePage}/>
                 }</span>
               </div>
             ))}

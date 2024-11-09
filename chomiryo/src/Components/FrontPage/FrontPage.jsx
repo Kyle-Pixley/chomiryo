@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Routes, Route } from 'react-router-dom';
+import { useNavigate, Routes, Route, useLocation } from 'react-router-dom';
 import RecipeList from './RecipesList/RecipeList';
 import PostRecipe from './PostRecipe/PostRecipe';
 import PostCreated from './PostCreated/PostCreated';
@@ -9,8 +9,14 @@ import './FrontPage.css';
 function FrontPage({ logout, postRecipe, setPostRecipe }) {
 
     const [ postCreated, setPostCreated ] = useState(false);
+    const [ viewingRecipePage, setViewingRecipePage ] = useState(false);
+    const location = useLocation();
     const navigate = useNavigate();
 
+    //tracks if the user is viewing Recipe.jsx
+    useEffect(() => {
+        setViewingRecipePage(location.pathname === '/recipe');
+    }, [location])
 
     useEffect(() => {
         if(postCreated) {
@@ -27,8 +33,9 @@ function FrontPage({ logout, postRecipe, setPostRecipe }) {
         } else if(postRecipe) {
             return <PostRecipe 
                         setPostCreated={setPostCreated}/>
-        } else return <RecipeList />
-    }
+        } else return <RecipeList 
+                        viewingRecipePage={viewingRecipePage}/>
+    };
 
     const handlePostRecipeClick = () => {
         setPostRecipe(!postRecipe);
@@ -57,7 +64,8 @@ function FrontPage({ logout, postRecipe, setPostRecipe }) {
                 element={displayFrontPage()} />
             <Route
                 path='/recipe'
-                element={<Recipe />} />
+                element={<Recipe 
+                            viewingRecipePage={viewingRecipePage} />} />
         </Routes>
     </div>
   )

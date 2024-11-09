@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import StarRating from '../../StarRating/StarRating';
 import walnut from '../../../../assets/walnut.png';
 import './Recipe.css';
 
-function Recipe() {
+function Recipe({ viewingRecipePage }) {
     const location = useLocation();
     const recipeId = location.state?.recipeId;
     const [ singleRecipe, setSingleRecipe ] = useState({});
@@ -39,10 +40,18 @@ function Recipe() {
             <img 
                 id='single-recipe-image'
                 src={walnut} />
-            <div style={{width: "100%", height: "100%"}}>
+
+            <div style={{
+                    width: "100%", 
+                    height: "100%", 
+                    display: "flex", 
+                    flexDirection: "column", 
+                    alignItems: "center"}}>
                 <h2 id='single-recipe-title'>
                     {singleRecipe.title ? singleRecipe.title.toUpperCase() : 'loading...'}
                 </h2>
+                <StarRating 
+                    viewingRecipePage={viewingRecipePage} />
             </div>
 
         </div>

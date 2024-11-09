@@ -40,20 +40,7 @@ function PostRecipe({ setPostCreated }) {
     useEffect(() => {
         setInstructions({ingredients: ingredients, steps: recipeSteps})
     }, [ingredients, recipeSteps])
-
-    const getUserById = () => {
-        try {
-            const sessionToken = localStorage.getItem('token');
-            const decodedToken = jwtDecode(sessionToken)
-            // ! why is this not triggering?
-            console.log('something')
-            return decodedToken._id;
-        } catch (err) {
-            console.log(`error decoding`, err)
-        }
-    }
     
-
     const handlePostSubmit = e => {
         e.preventDefault();
 
@@ -88,9 +75,8 @@ function PostRecipe({ setPostCreated }) {
                 className='post-recipe-inputs'
                 type='text'
                 value={recipeTitle}
-                onChange={e => setRecipeTitle(e.target.value.trim())}>
+                onChange={e => setRecipeTitle(e.target.value)}>
             </input>
-            {/* //todo figure out how to set up ingredients so the user can have as many as there recipe calls for with exactly as many inputs as they need */}
             <label
                 className='post-recipe-labels'>
                     Ingredients
@@ -153,4 +139,4 @@ function PostRecipe({ setPostCreated }) {
   )
 }
 
-export default PostRecipe
+export default PostRecipe;
