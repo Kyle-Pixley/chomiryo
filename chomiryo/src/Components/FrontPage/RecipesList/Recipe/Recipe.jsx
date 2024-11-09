@@ -51,6 +51,7 @@ function Recipe({ viewingRecipePage }) {
                     {singleRecipe.title ? singleRecipe.title.toUpperCase() : 'loading...'}
                 </h2>
                 <StarRating 
+                    recipeRating={singleRecipe.averageRating}
                     viewingRecipePage={viewingRecipePage} />
             </div>
 

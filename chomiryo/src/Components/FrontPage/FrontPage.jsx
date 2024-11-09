@@ -17,7 +17,7 @@ function FrontPage({ logout, postRecipe, setPostRecipe }) {
     useEffect(() => {
         setViewingRecipePage(location.pathname === '/recipe');
     }, [location])
-
+    
     useEffect(() => {
         if(postCreated) {
             setTimeout(() => {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Star from '../../../assets/yellow-star.png';
 import HalfStar from '../../../assets/half-yellow-star.png';
+import EmptyStar from '../../../assets/empty-star.png';
 import './StarRating.css';
 
 
@@ -30,6 +31,9 @@ function StarRating({ recipeRating, viewingRecipePage }) {
                     <img
                         className='star-image half-star-image'
                         src={HalfStar} />
+                    <img
+                        className='star-image empty-star-image'
+                        src={EmptyStar} />
                 </div>
             )
         } else if (recipeRating >= 1.8 && recipeRating < 2.3) {
@@ -145,14 +149,14 @@ function StarRating({ recipeRating, viewingRecipePage }) {
                         src={Star} />
                 </div>
             )
-        } else return editRating()
+        } else return 'No Rating'
     }
 
     const editRating = () => {
         if(viewingRecipePage) {
-            return 'viewing recipe page'
             // this is where clicking and rating come into play
-        } else return 'not viewing recipe page'
+            return console.log('viewing recipe page')
+        } else return console.log('not viewing recipe page')
     }
 
   return (

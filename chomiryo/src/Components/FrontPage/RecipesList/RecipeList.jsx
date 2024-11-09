@@ -8,11 +8,6 @@ function RecipeList({ viewingRecipePage }) {
   const [ allRecipes, setAllRecipes ] = useState([]);
   const navigate = useNavigate();
 
-  //navigates to the individual recipe page using the recipe id that is passed through 
-  const handleRecipeClick = (recipeId) => {
-    navigate('/recipe', { state: { recipeId }});
-  }
-
   useEffect(() => {
     const url = "http://127.0.0.1:4000/post/"
     const options = {
@@ -28,9 +23,11 @@ function RecipeList({ viewingRecipePage }) {
       .catch(err => err.message)
   }, [])
 
-    useEffect(() => {
-      console.log(allRecipes)
-    }, [allRecipes])
+  //navigates to the individual recipe page using the recipe id that is passed through 
+  const handleRecipeClick = (recipeId) => {
+    navigate('/recipe', { state: { recipeId }});
+  }
+
 
   return (
     <div id='recipe-list-component'>
