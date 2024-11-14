@@ -1,3 +1,9 @@
+#star-rating-parent:hover {
+    
+}
 .star-image {
-    height: 20px;
+    height: 3.3vw;
+}
+.star-image:hover {
+    cursor: pointer;
 }
