@@ -52,7 +52,8 @@ function Recipe({ viewingRecipePage }) {
                 </h2>
                 <StarRating 
                     recipeRating={singleRecipe.averageRating}
-                    viewingRecipePage={viewingRecipePage} />
+                    viewingRecipePage={viewingRecipePage} 
+                    recipeId={recipeId} />
             </div>
 
         </div>

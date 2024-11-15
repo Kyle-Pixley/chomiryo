@@ -5,7 +5,7 @@ import EmptyStar from '../../../assets/empty-star.png';
 import './StarRating.css';
 
 
-function StarRating({ recipeRating, viewingRecipePage }) {
+function StarRating({ recipeRating, viewingRecipePage, recipeId }) {
 
     const [ starOneImage, setStarOneImage ] = useState('');
     const [ starTwoImage, setStarTwoImage ] = useState('');
@@ -14,6 +14,7 @@ function StarRating({ recipeRating, viewingRecipePage }) {
     const [ starFiveImage, setStarFiveImage ] = useState('');
 
     const [ mouseLeave, setMouseLeave ] = useState(false);
+    const [ ratingGiven, setRatingGiven ] = useState(false);
 
     
     useEffect(() => {
@@ -98,34 +99,101 @@ function StarRating({ recipeRating, viewingRecipePage }) {
     }, [mouseLeave, recipeRating]) 
 
     const onMouseHover = (starNumber) => {
-        console.log(`star number is ${starNumber}`)
+        if(viewingRecipePage){
+
+            switch (starNumber) {
+                case 1:
+                    setStarOneImage(Star);
+                    setStarTwoImage(EmptyStar);
+                    setStarThreeImage(EmptyStar);
+                    setStarFourImage(EmptyStar);
+                    setStarFiveImage(EmptyStar);
+                    break;
+                case 2:
+                    setStarOneImage(Star);
+                    setStarTwoImage(Star);
+                    setStarThreeImage(EmptyStar);
+                    setStarFourImage(EmptyStar);
+                    setStarFiveImage(EmptyStar);
+                    break;
+                case 3:
+                    setStarOneImage(Star);
+                    setStarTwoImage(Star);
+                    setStarThreeImage(Star);
+                    setStarFourImage(EmptyStar);
+                    setStarFiveImage(EmptyStar);
+                    break;
+                case 4:
+                    setStarOneImage(Star);
+                    setStarTwoImage(Star);
+                    setStarThreeImage(Star);
+                    setStarFourImage(Star);
+                    setStarFiveImage(EmptyStar);
+                    break;
+                case 5:
+                    setStarOneImage(Star);
+                    setStarTwoImage(Star);
+                    setStarThreeImage(Star);
+                    setStarFourImage(Star);
+                    setStarFiveImage(Star);
+                    break;
+                default:
+                    setMouseLeave(!mouseLeave)
+                    break;
+                }
+            }
+        }
+
+    const handleStarClick = (rating) => {
+        console.log(recipeId, ':', rating)
+        const body = {rating};
+
+        const url = `http://127.0.0.1:4000/post/rate/${recipeId}`;
+        const options = {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: new Headers({
+                "Content-Type" : "application/json",
+                "Authorization" : `Bearer ${localStorage.getItem('token')}`
+            })
+        }
+        fetch(url, options)
+            .then(res => res.json())
+            .then(data => console.log(data))
+            .then(setRatingGiven(true))
+            .catch(err => console.error("error:", err))
     }
-
-
-  return (
-    <div 
-        id='star-rating-component'
+            
+            
+            return (
+                <div 
+                id='star-rating-component'
         onMouseLeave={() => setMouseLeave(!mouseLeave)}>
         <img 
             src={starOneImage}
             className='star-image'
-            onMouseEnter={() => onMouseHover(1)}/>
+            onMouseEnter={() => onMouseHover(1)}
+            onClick={() => handleStarClick(1)}/>
         <img 
             src={starTwoImage}
             className='star-image'
-            onMouseEnter={() => onMouseHover(2)}/>
+            onMouseEnter={() => onMouseHover(2)}
+            onClick={() => handleStarClick(2)}/>
         <img
             src={starThreeImage}
             className='star-image'
-            onMouseEnter={() => onMouseHover(3)}/>
+            onMouseEnter={() => onMouseHover(3)}
+            onClick={() => handleStarClick(3)}/>
         <img
             src={starFourImage}
             className='star-image'
-            onMouseEnter={() => onMouseHover(4)}/>
+            onMouseEnter={() => onMouseHover(4)}
+            onClick={() => handleStarClick(4)}/>
         <img
             src={starFiveImage}
             className='star-image'
-            onMouseEnter={() => onMouseHover(5)}/>
+            onMouseEnter={() => onMouseHover(5)}
+            onClick={() => handleStarClick(5)}/>
     </div>
   )
 }

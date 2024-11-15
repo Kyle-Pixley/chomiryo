@@ -45,6 +45,7 @@ function RecipeList({ viewingRecipePage }) {
                 <span id='recipe-rating'>{
                   <StarRating 
                     recipeRating={recipe.averageRating}
+                    recipeId={recipe._id}
                     viewingRecipePage={viewingRecipePage}/>
                 }</span>
               </div>
