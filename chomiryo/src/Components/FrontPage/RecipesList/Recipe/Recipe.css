@@ -31,3 +31,10 @@ li {
     border-bottom: 1px solid black;
     font-size: 1.5vw;
 }
+#recipe-bottom-border {
+    height: 3px;
+    width: 90vw;
+    background-color: black;
+    border-radius: 50%;
+    margin: auto;
+}

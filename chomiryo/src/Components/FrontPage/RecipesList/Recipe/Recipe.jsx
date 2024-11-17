@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import StarRating from '../../StarRating/StarRating';
+import RecipeComments from './RecipeComments/RecipeComments';
 import walnut from '../../../../assets/walnut.png';
 import './Recipe.css';
 
@@ -83,6 +84,11 @@ function Recipe({ viewingRecipePage }) {
                 </ol>
             </div>
         </div>
+        <div 
+            id="recipe-bottom-border">
+        </div>
+        <RecipeComments 
+            recipeId={recipeId}/>
     </div>
   )
 }
