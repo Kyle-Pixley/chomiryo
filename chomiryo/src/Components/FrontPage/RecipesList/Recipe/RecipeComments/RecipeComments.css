@@ -1,0 +1,13 @@
+#recipe-comments-component{
+    margin-bottom: 60px;
+}
+#comment-parent {
+    border: 1px solid black;
+}
+#comment-user-text, #comment-body-text {
+    font-size: 22px;
+}
+#comment-body-text {
+    margin-left: 2vw;
+    margin-top: 10px;
+}

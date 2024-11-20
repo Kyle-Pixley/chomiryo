@@ -66,6 +66,25 @@ router.post("/login", async (req, res) => {
             message: err.message
         })
     }
-})
+});
+
+//get user by id 
+router.get("/:user_id", async (req, res) => {
+    console.log( 'get one use route hit ')
+    try {
+        const { user_id } = req.params;
+        const foundUser = await User.findOne({ _id: user_id});
+        if (!foundUser) throw Error("User not found");
+
+        res.status(200).json({
+            message: "Found User",
+            foundUser
+        });
+    } catch (err) {
+        res.status(500).json({
+            message: err.message
+        });
+    }
+});
 
 module.exports = router;
