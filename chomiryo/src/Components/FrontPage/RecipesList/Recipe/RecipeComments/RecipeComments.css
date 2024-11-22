@@ -1,8 +1,38 @@
 #recipe-comments-component{
     margin-bottom: 60px;
+    width: 60vw;
+    margin: 0 auto 50px auto;
+    display: flex;
+    flex-direction: column;
+}
+#recipe-comments-form {
+    margin-top: 10px;
+    display: flex;
+    height: 5vw;
+    justify-content: space-evenly;
+    align-items: center;
+}
+#comment-input {
+    font-size: 22px;
+    width: 50vw;
+    height: 35px;
+    text-indent: 10px;
+    padding: 2px;
+    box-shadow: 2px 2px 2px white, inset 4px 4px 4px gray;
+    border: none;
+}
+#comment-input:focus {
+    outline: none;
+    border: 1px solid gray;
+}
+#submit-comment-button {
+    height: 50%;
+    margin: 0;
+    box-shadow: none;
+    width: 5vw;
 }
 #comment-parent {
-    border: 1px solid black;
+    margin-top: 20px;
 }
 #comment-user-text, #comment-body-text {
     font-size: 22px;
@@ -10,4 +40,14 @@
 #comment-body-text {
     margin-left: 2vw;
     margin-top: 10px;
+}
+#comment-bottom-border {
+    height: 2px;
+    width: 100%;
+    background-color: silver;
+    border-radius: 50%;
+}
+#load-more-comments-button {
+    height: 4vh;
+    border-radius: 22px;
 }

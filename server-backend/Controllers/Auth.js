@@ -70,7 +70,6 @@ router.post("/login", async (req, res) => {
 
 //get user by id 
 router.get("/:user_id", async (req, res) => {
-    console.log( 'get one use route hit ')
     try {
         const { user_id } = req.params;
         const foundUser = await User.findOne({ _id: user_id});

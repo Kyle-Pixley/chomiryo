@@ -6,9 +6,10 @@ function RecipeComments({ recipeId }) {
     const [ newComment, setNewComment ] = useState('');
     const [ commentPosted, setCommentPosted ] = useState(false);
     const [ commentList, setCommentList ] = useState([]);
+    const [ numberOfComments, setNumberOfComments ] = useState(-10);
 
     //post new comment
-    const handleCommentSubmit = e => {
+    const handleCommentSubmit = async e => {
         e.preventDefault();
         const body = { body: newComment };
         
@@ -22,11 +23,17 @@ function RecipeComments({ recipeId }) {
                 "Authorization" : `Bearer ${localStorage.getItem('token')}`
             })
         }
+        try {
+            const res = await fetch(url, options);
+            if (!res.ok) throw new Error("Failed to post comment");
 
-        fetch(url, options)
-            .then(res => res.json())
-            .then(setCommentPosted(!commentPosted))
-            .catch(err => console.error("Error: ", err))
+            const data = await res.json();
+            console.log("Comment Posted: ", data);
+            setNewComment('');
+            setCommentPosted(!commentPosted);
+        } catch (err) {
+            console.error("error posting comment: ", err);
+        }
     };
 
     //gathers all the comments for this post/recipe and posters (users) userName
@@ -62,15 +69,20 @@ function RecipeComments({ recipeId }) {
     fetchComments();
     }, [recipeId, commentPosted]);
 
-    useEffect(() =>{
-        if(commentList) {
-            console.log(commentList)
-        }
-    }, [commentList])
+    // allows user to see more comments if there are more comments otherwise button does not render 
+    const loadMoreComments = e => {
+        let negativeCommentListLength = -Math.abs(commentList.length);
 
-    //get user by id for signature of comment 
-    
-    
+        if(numberOfComments > negativeCommentListLength) {
+            return (
+                <button
+            id='load-more-comments-button'
+            onClick={() => setNumberOfComments(numberOfComments - 10)}>
+                Load More Comments
+            </button>
+            )
+        } else return null 
+    }
 
   return (
     <div id='recipe-comments-component'>
@@ -83,13 +95,14 @@ function RecipeComments({ recipeId }) {
                 placeholder='Leave A Comment'>
                 </input>
             <button 
+                id='submit-comment-button'
                 type='submit'
                 onClick={handleCommentSubmit}>
                     Post
                 </button>
         </form>
         {commentList.length > 0 ? (
-            commentList.map(comment => (
+            commentList.slice(numberOfComments).reverse().map(comment => (
                 <div 
                     id='comment-parent'
                     key={comment._id}>
@@ -101,9 +114,11 @@ function RecipeComments({ recipeId }) {
                         id='comment-body-text'>
                         {comment.body}
                     </p>
+                    <div id='comment-bottom-border'></div>
                 </div>
             ))
         ) : "Be the first to comment"}
+        {loadMoreComments()}
     </div>
   )
 }
