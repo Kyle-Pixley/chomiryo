@@ -1,20 +1,22 @@
 #recipe-list-component {
-    border: 1px solid black;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 3vw;
+    width: 90%;
+    margin: 3vw auto 0 auto;
 }
 #recipe-parent {
     display: grid;
     grid-gap: 6vw;
     grid-template-columns: repeat(4, 1fr);
     width: fit-content;
+    border: 1px solid black;
+
 }
 #individual-recipe {
     display: flex;
     flex-direction: column;
-
+    
 }
 #recipe-image {
     height: 10vw;
@@ -23,8 +25,12 @@
     margin: auto;
 }
 #recipe-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2.3em;
     text-align: center;
-    font-size: 3vw;
+    font-size: 2.8vw;
 }
 #recipe-rating {
     text-align: center;

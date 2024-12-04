@@ -53,12 +53,37 @@ router.put("/updatepost/:id", sessionValidation, async (req, res) => {
     }
 });
 
-//todo make search posts by ingredients 
+//search post based on ingredients and return 24 of them in rating descending order
+router.get('/search', sessionValidation, async (req, res) => {
+    const { searchQuery } = req.body;
+
+    if (!searchQuery) {
+        return res.status(400).json({ error: "Search term is required"})
+    }
+
+    try {
+        const results = await Post.find({
+            "instructions.ingredients" : { $regex: searchQuery, $options: "i" }
+        })
+            .sort({ averageRating: -1 })
+            .limit(24);
+        
+        res.status(200).json(results);
+    } catch (error) {
+        console.error("Error fetching posts:" , error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+//gets all posts and sorts them by average rating and limits the number to 24
 router.get('/', sessionValidation, async (req, res) => {
     try {
         const posts = 
             await Post.find({})
                 .populate("user", "userName")
+                .sort({ averageRating: -1 })
+                .limit(24)
+
         if (posts.length === 0) throw Error("No posts found");
         res.status(200).json(posts)
 

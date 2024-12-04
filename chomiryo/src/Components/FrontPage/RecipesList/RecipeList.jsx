@@ -6,6 +6,8 @@ import './RecipeList.css';
 function RecipeList({ viewingRecipePage }) {
 
   const [ allRecipes, setAllRecipes ] = useState([]);
+  // const [ search button clicked??
+  // if search button clicked populate posts with search instead of get all posts
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,6 +24,10 @@ function RecipeList({ viewingRecipePage }) {
       .then(data => setAllRecipes(data))
       .catch(err => err.message)
   }, [])
+
+  useEffect(() => {
+    console.log('this is all recipes', allRecipes)
+  }, [allRecipes])
 
   //navigates to the individual recipe page using the recipe id that is passed through 
   const handleRecipeClick = (recipeId) => {
