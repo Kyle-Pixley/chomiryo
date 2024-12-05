@@ -8,27 +8,34 @@ function RecipeList({ viewingRecipePage }) {
 
   const [ allRecipes, setAllRecipes ] = useState([]);
   const [ searchQuery, setSearchQuery ] = useState('');
+  const [ counter, setCounter ] = useState(0)
   const navigate = useNavigate();
 
+  useEffect(() => {
+    console.log('all the recipes counter', allRecipes)
+    console.log('all recipes has changed', counter)
+    setCounter(counter + 1)
+  }, [allRecipes])
+
+  // returns recipes or searched recipes based on if anything is in the search input and the search button is clicked from SearchPosts.jsx (searchQuery)
   useEffect(() => {
     console.log('search query = ', searchQuery)
     if(searchQuery != '') {
       // todo change this to the search endpoint
-      const url = "http://127.0.0.1:4000/post/search";
-      const body = searchQuery;
+      const url = `http://127.0.0.1:4000/post/search?searchQuery=${encodeURIComponent(searchQuery)}`;
       const options = {
-        method: "GET",
-        body: JSON.stringify(body),
+        method: "get",
         headers: new Headers({
           "Content-Type" : "application/json",
           "authorization" : localStorage.getItem("token")
         })
       }
       fetch(url,options)
-        .then(console.log('its hitting here'))
-        .then(data => console.log(data))
         .then(res => res.json())
-        .then(data => setAllRecipes(data))
+        .then( data => {
+          console.log("Fetched Data", data)
+          setAllRecipes(data)
+        })
         .catch(err => err.message)
     } else {
       const url = "http://127.0.0.1:4000/post/"
@@ -46,14 +53,12 @@ function RecipeList({ viewingRecipePage }) {
     }
   }, [searchQuery])
 
-  useEffect(() => {
-    console.log('this is all recipes', allRecipes)
-  }, [allRecipes])
-
   //navigates to the individual recipe page using the id of that specific recipe that is the argument
   const handleRecipeClick = (recipeId) => {
     navigate('/recipe', { state: { recipeId }});
   }
+
+
 
 
   return (
@@ -62,8 +67,8 @@ function RecipeList({ viewingRecipePage }) {
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery} />
         <div id='recipe-parent'>
-            {allRecipes.map((recipe, i) => (
-              <div id='individual-recipe'>
+            {Array.isArray(allRecipes) && allRecipes.length > 0 ? ( allRecipes.map((recipe, i) => (
+              <div id='individual-recipe' key={recipe._id}>
                 <div 
                   id='recipe-image'
                   onClick={() => handleRecipeClick(recipe._id)}></div>
@@ -72,14 +77,16 @@ function RecipeList({ viewingRecipePage }) {
                   key={recipe._id}>
                     {recipe.title}
                 </h3>
-                <span id='recipe-rating'>{
+                <span id='recipe-rating'>
                   <StarRating 
                     recipeRating={recipe.averageRating}
                     recipeId={recipe._id}
-                    viewingRecipePage={viewingRecipePage}/>
-                }</span>
+                    viewingRecipePage={viewingRecipePage}/> 
+                </span>
               </div>
-            ))}
+            ))
+                ) : (<p>No Recipes Found</p>)
+            }
         </div>
     </div>
   )

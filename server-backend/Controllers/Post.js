@@ -56,7 +56,7 @@ router.put("/updatepost/:id", sessionValidation, async (req, res) => {
 //search post based on ingredients and return 24 of them in rating descending order
 router.get('/search', sessionValidation, async (req, res) => {
     console.log('search endpoint hit')
-    const { searchQuery } = req.body;
+    const { searchQuery } = req.query;
 
     if (!searchQuery) {
         return res.status(400).json({ error: "Search term is required"})
