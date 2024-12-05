@@ -55,6 +55,7 @@ router.put("/updatepost/:id", sessionValidation, async (req, res) => {
 
 //search post based on ingredients and return 24 of them in rating descending order
 router.get('/search', sessionValidation, async (req, res) => {
+    console.log('search endpoint hit')
     const { searchQuery } = req.body;
 
     if (!searchQuery) {
