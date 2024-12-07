@@ -13,6 +13,8 @@ function Recipe({ viewingRecipePage }) {
     const [ uploadedBy, setUploadedBy ] = useState('');
     const [ stepsList, setStepsList ] = useState([]);
 
+    const [ updateRecipe, setUpdateRecipe ] = useState(false);
+
     //fetches the single post based on the recipe._id aka recipeId
     useEffect(() => {
         const url = `http://127.0.0.1:4000/post/${recipeId}`
@@ -51,6 +53,16 @@ function Recipe({ viewingRecipePage }) {
         }
     }, [singleRecipe]);
 
+    useEffect(() => {
+        if(uploadedBy && uploadedBy.foundUser) {
+            console.log(uploadedBy.foundUser, 'this here')
+            //todo if uploadedBy.foundUser._id === currentLoggedInUser._id
+            if(uploadedBy.foundUser._id ) {
+
+            }
+        }
+    }, [uploadedBy])
+
   return (
     <div id='single-recipe-component'>
         <div id='single-recipe-title-and-image'>
@@ -71,7 +83,7 @@ function Recipe({ viewingRecipePage }) {
                     recipeRating={singleRecipe.averageRating}
                     viewingRecipePage={viewingRecipePage} 
                     recipeId={recipeId} />
-                <h4>Uploaded by: {uploadedBy.foundUser.userName}</h4>
+                <h4>Uploaded by: {uploadedBy.foundUser ? uploadedBy.foundUser.userName : 'Unknown'}</h4>
             </div>
 
         </div>

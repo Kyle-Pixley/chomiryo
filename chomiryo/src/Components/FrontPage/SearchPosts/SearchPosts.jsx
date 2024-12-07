@@ -13,7 +13,7 @@ function SearchPosts({ searchQuery, setSearchQuery }) {
 
   return (
     <div id='search-posts'>
-        <form>
+        <form style={{display: 'flex'}}>
             <input
                 id='search-input'
                 type='text'
@@ -21,12 +21,14 @@ function SearchPosts({ searchQuery, setSearchQuery }) {
                 value={searchInput}
                 onChange={e => setSearchInput(e.target.value)}>
             </input>
+            <div id='button-container'>
             <button 
                 id='search-button'
                 type='submit'
                 onClick={handleSubmitSearchForm}>
                     Search
                 </button>
+            </div>
         </form>
     </div>
   )

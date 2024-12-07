@@ -4,20 +4,18 @@
     align-items: center;
     justify-content: center;
     width: 90%;
-    margin: 3vw auto 0 auto;
+    margin: .5vw auto 0 auto;
 }
 #recipe-parent {
     display: grid;
     grid-gap: 6vw;
     grid-template-columns: repeat(4, 1fr);
     width: fit-content;
-    border: 1px solid black;
-
+    padding-top: 30px;
 }
 #individual-recipe {
     display: flex;
     flex-direction: column;
-    
 }
 #recipe-image {
     height: 10vw;

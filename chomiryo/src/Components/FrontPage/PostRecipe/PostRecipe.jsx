@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import './PostRecipe.css';
 
@@ -8,6 +8,7 @@ function PostRecipe({ setPostCreated }) {
     const [ ingredients, setIngredients ] = useState(['1 cup of milk']);
     const [ recipeSteps, setRecipeSteps ] = useState(['Preheat oven to 350 degrees fahrenheit']);
     const [ instructions, setInstructions ] = useState({ingredients:[ingredients],recipeSteps:[recipeSteps]});
+    const textareaRef = useRef(null);
 
     const addIngredient = e => {
         e.preventDefault(); 
@@ -39,7 +40,14 @@ function PostRecipe({ setPostCreated }) {
     }
     useEffect(() => {
         setInstructions({ingredients: ingredients, steps: recipeSteps})
-    }, [ingredients, recipeSteps])
+    }, [ingredients, recipeSteps]);
+
+    //adjusts height of the text area based on how much the user has typed
+    const handleTextareaInput = e => {
+        const textarea = textareaRef.current;
+        textarea.style.height = "auto";
+        textarea.style.height = `${textarea.scrollHeight}px`
+    }
     
     const handlePostSubmit = e => {
         e.preventDefault();
@@ -108,14 +116,17 @@ function PostRecipe({ setPostCreated }) {
                     Steps
             </label>
             { recipeSteps.map((steps, i) => (
-                <input
+                <textarea
+                    rows={2}
+                    ref={textareaRef}
+                    onInput={handleTextareaInput}
                     key={i}
                     className='post-recipe-inputs'
                     type='text'
                     value={steps}
                     onChange={e => handleRecipeStepChange(i,e)}
                     placeholder={`Step #${i+1}`}>
-                </input>
+                </textarea>
             ))}
             <div id='add-delete-steps-parent'>
                 <button

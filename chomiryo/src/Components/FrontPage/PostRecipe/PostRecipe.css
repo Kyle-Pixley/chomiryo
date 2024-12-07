@@ -13,6 +13,10 @@
 }
 .post-recipe-inputs {
     font-size: 20px;
+    padding: 3px;
+    text-indent: 3px;
+    resize: none;
+    overflow: hidden;
 }
 #add-delete-ingredients-parent > button, #add-delete-steps-parent > button {
     height: 8vh;
