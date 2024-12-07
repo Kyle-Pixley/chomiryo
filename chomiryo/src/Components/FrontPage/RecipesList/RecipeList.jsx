@@ -11,12 +11,6 @@ function RecipeList({ viewingRecipePage }) {
   const [ counter, setCounter ] = useState(0)
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log('all the recipes counter', allRecipes)
-    console.log('all recipes has changed', counter)
-    setCounter(counter + 1)
-  }, [allRecipes])
-
   // returns recipes or searched recipes based on if anything is in the search input and the search button is clicked from SearchPosts.jsx (searchQuery)
   useEffect(() => {
     console.log('search query = ', searchQuery)

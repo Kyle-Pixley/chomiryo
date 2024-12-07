@@ -10,6 +10,7 @@ function Recipe({ viewingRecipePage }) {
     const recipeId = location.state?.recipeId;
     const [ singleRecipe, setSingleRecipe ] = useState({});
     const [ ingredientsList, setIngredientsList ] = useState([]);
+    const [ uploadedBy, setUploadedBy ] = useState('');
     const [ stepsList, setStepsList ] = useState([]);
 
     //fetches the single post based on the recipe._id aka recipeId
@@ -28,12 +29,27 @@ function Recipe({ viewingRecipePage }) {
     }, []);
 
     useEffect(() => {
+        if(singleRecipe.user) {
+            const url = `http://127.0.0.1:4000/auth/${singleRecipe.user}`
+            const options = {
+                headers: new Headers({
+                    "Content-Type" : "application/json",
+                    "authorization" : localStorage.getItem("token")
+                })
+            }
+            fetch(url,options)
+                .then(res => res.json())
+                .then(data => setUploadedBy(data))
+                .catch(err => err.message)
+        }
+    }, [singleRecipe])
+
+    useEffect(() => {
         if(singleRecipe && singleRecipe.instructions) {
             setIngredientsList(singleRecipe.instructions.ingredients)
             setStepsList(singleRecipe.instructions.steps)
         }
-    }, [singleRecipe])
-
+    }, [singleRecipe]);
 
   return (
     <div id='single-recipe-component'>
@@ -55,6 +71,7 @@ function Recipe({ viewingRecipePage }) {
                     recipeRating={singleRecipe.averageRating}
                     viewingRecipePage={viewingRecipePage} 
                     recipeId={recipeId} />
+                <h4>Uploaded by: {uploadedBy.foundUser.userName}</h4>
             </div>
 
         </div>
@@ -65,8 +82,11 @@ function Recipe({ viewingRecipePage }) {
                 <ul>
 
                     {ingredientsList 
-                        ? ingredientsList.map(item =>(
-                            <li>{item}</li>
+                        ? ingredientsList.map((item, i) =>(
+                            <li
+                                key={i}>
+                                {item}
+                            </li>
                         )) 
                         : "Loading..."}
                 </ul>
@@ -76,7 +96,8 @@ function Recipe({ viewingRecipePage }) {
                 <ol>
                 {stepsList
                     ? stepsList.map((item,i) => (
-                            <li>
+                            <li
+                                key={i}>
                                 {item}
                             </li>
                         ))
