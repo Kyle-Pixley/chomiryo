@@ -1,5 +1,6 @@
 #single-recipe-component {
-
+    display: flex;
+    flex-direction: column;
 }
 #single-recipe-title-and-image, #ingredients-steps-parent {
     display: flex;
@@ -30,6 +31,9 @@
 li {
     border-bottom: 1px solid black;
     font-size: 1.5vw;
+}
+#update-recipe-button {
+    margin: 2vh 0 5vh 0;
 }
 #recipe-bottom-border {
     height: 3px;

@@ -4,6 +4,7 @@ import StarRating from '../../StarRating/StarRating';
 import RecipeComments from './RecipeComments/RecipeComments';
 import walnut from '../../../../assets/walnut.png';
 import './Recipe.css';
+import { jwtDecode } from 'jwt-decode';
 
 function Recipe({ viewingRecipePage }) {
     const location = useLocation();
@@ -53,15 +54,18 @@ function Recipe({ viewingRecipePage }) {
         }
     }, [singleRecipe]);
 
+    // if the currently logged in user is the user that created the recipe then sets updateRecipe to true. if update recipe is true then there is a button that allows user to update/delete their own recipe
     useEffect(() => {
         if(uploadedBy && uploadedBy.foundUser) {
-            console.log(uploadedBy.foundUser, 'this here')
-            //todo if uploadedBy.foundUser._id === currentLoggedInUser._id
-            if(uploadedBy.foundUser._id ) {
-
-            }
+            if(uploadedBy.foundUser._id === jwtDecode(localStorage.getItem('token'))._id) {
+                setUpdateRecipe(true);
+            } else null
         }
-    }, [uploadedBy])
+    }, [uploadedBy]);
+
+    const handleUpdateRecipe = () => {
+        console.log('This will update the recipe')
+    }
 
   return (
     <div id='single-recipe-component'>
@@ -117,6 +121,15 @@ function Recipe({ viewingRecipePage }) {
                 </ol>
             </div>
         </div>
+        {updateRecipe
+            ? (
+                <button
+                    id='update-recipe-button'
+                    onClick={() => handleUpdateRecipe()}>
+                    Update Recipe
+                </button>
+            ) 
+            : null }
         <div 
             id="recipe-bottom-border">
         </div>
