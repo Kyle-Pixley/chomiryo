@@ -75,7 +75,7 @@ function Auth({ updateLocalStorage }) {
     const sendPasswordResetEmail = e => {
         e.preventDefault();
         console.log('something')
-        //!why is this still refreshing the page??
+        
     };
 
     const errorMessageSimple = () => {

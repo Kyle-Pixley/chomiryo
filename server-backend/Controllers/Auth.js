@@ -68,6 +68,29 @@ router.post("/login", async (req, res) => {
     }
 });
 
+//find one user by email 
+router.post("/find-email", async (req, res) => {
+    try {
+        const { email } = req.body;
+
+        if(!email) throw Error("Please Enter Email");
+
+        let foundUser = await User.findOne({ email });
+
+        if(!foundUser) throw Error("No User With This Email found");
+
+        res.status(200).json({
+            message: 'User Found',
+            foundUser
+        })
+    } catch(err) {
+        console.log(err)
+        res.status(500).json({
+            message: err.message
+        })
+    }
+});
+
 //get user by id 
 router.get("/:user_id", async (req, res) => {
     try {
