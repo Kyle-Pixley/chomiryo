@@ -74,7 +74,6 @@ function Auth({ updateLocalStorage }) {
 
     const sendPasswordResetEmail = e => {
         e.preventDefault();
-        console.log('something')
         
     };
 
