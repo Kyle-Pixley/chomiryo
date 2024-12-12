@@ -14,6 +14,7 @@ const PORT = process.env.PORT || "4000";
 const authController = require("./Controllers/Auth");
 const postController = require("./Controllers/Post");
 const commentController = require("./Controllers/Comment");
+const nodemailerController = require("./Controllers/NodeMailer");
 const sessionValidation = require("./Middlewares/Session");
 
 
@@ -24,7 +25,7 @@ app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use("/auth", authController);
 app.use("/post", sessionValidation, postController);
 app.use("/comment", sessionValidation, commentController);
-// app.use email??
+app.use("/email", nodemailerController);
 //app.use utilities 'S3 bucket'??
 
 

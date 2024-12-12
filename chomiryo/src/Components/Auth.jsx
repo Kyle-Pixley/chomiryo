@@ -7,6 +7,9 @@ function Auth({ updateLocalStorage }) {
     const [ userName, setUserName ] = useState('');
     const [ password, setPassword ] = useState('');
 
+    const [ isError, setIsError ] = useState(false);
+    const [ forgotPassword, setForgotPassword ] = useState(false);
+
     const [ login, setLogin ] = useState(true);
     const [ errorMessage, setErrorMessage ] = useState('');
 
@@ -63,16 +66,49 @@ function Auth({ updateLocalStorage }) {
             updateLocalStorage(data.token);
             setErrorMessage("");
         } catch (err) {
+            setIsError(true);
             setErrorMessage(err.message);
             console.error(err.message);
         }
     };
 
+    const sendPasswordResetEmail = e => {
+        e.preventDefault();
+        console.log('something')
+        //!why is this still refreshing the page??
+    };
+
     const errorMessageSimple = () => {
         if (errorMessage.slice(0,6) === 'E11000') {
             return 'Please use a valid E-mail'
-        } else return errorMessage
+        } else return (
+            <div id='error-message-parent'>
+                <p>{errorMessage}</p>
+                <button
+                    id='forgot-password-button'
+                    onClick={() => setForgotPassword(true)}>
+                    Forgot Password?
+                </button>
+            </div>
+        )
     };
+
+    const displayForgotPasswordForm = () => {
+        return (
+            <form id='forgot-password-form'>
+                <input 
+                    className='input'
+                    type='email'
+                    placeholder='Enter E-Mail'>
+                </input>
+                <button
+                    id='send-password-reset-email'
+                    onClick={e => sendPasswordResetEmail(e)}>
+                        Reset Password
+                </button>
+            </form>
+        )
+    }
 
 
 
@@ -88,7 +124,6 @@ function Auth({ updateLocalStorage }) {
                 >{ login ? "TO SIGNUP" : "TO LOGIN" }</button>
 
             <form action='' id='form-parent'>
-                <p id='auth-error-message'>{errorMessageSimple()}</p>
                 {register()}
                 <input
                     type='text'
@@ -112,6 +147,12 @@ function Auth({ updateLocalStorage }) {
                     onClick={handleSubmit}
                     >{ login ? "SIGN IN" : "REGISTER" }</button>
             </form>
+            { isError 
+                ? errorMessageSimple()
+                : null }
+            { forgotPassword 
+                ? displayForgotPasswordForm() 
+                : null }
         </div>
     </div>
   )
