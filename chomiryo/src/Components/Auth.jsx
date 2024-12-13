@@ -81,8 +81,6 @@ function Auth({ updateLocalStorage }) {
                 <button
                     id='forgot-password-button'
                     onClick={() => handleForgotPassword()}>
-                    {//on click send to another forgotPasswordPage.jsx
-                    }
                     Forgot Password?
                 </button>
             </div>

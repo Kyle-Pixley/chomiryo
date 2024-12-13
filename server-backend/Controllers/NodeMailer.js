@@ -37,7 +37,7 @@ router.post('/send-email', async (req,res) => {
 router.post('/forgot-password', async (req, res) => {
     const { email } = req.body;
     const secretKey = process.env.JWT_KEY;
-
+console.log('forgot password route hit')
     try {
         const user = await User.findOne({ email });
         if (!user) return res.status(404).json({ message: 'User not found'});
@@ -47,7 +47,7 @@ router.post('/forgot-password', async (req, res) => {
         user.resetToken = resetToken;
         await user.save();
 
-        const resetLink = `https://127.0.0.1:4000/reset-password?token=${resetToken}`;
+        const resetLink = `http://127.0.0.1:5173/reset-password?token=${resetToken}`;
 
         await transporter.sendMail({
             from: process.env.EMAIL,
