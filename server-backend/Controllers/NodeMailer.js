@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
         pass: process.env.PASS,
     },
 });
-
+// todo test route ----------------------
 router.post('/send-email', async (req,res) => {
     const { to, text } = req.body;
     const subject = "Reset Chomiryo Account Password"
@@ -31,6 +31,7 @@ router.post('/send-email', async (req,res) => {
         res.status(500).json({ success: false, message: 'Email failed to send'})
     }
 });
+//todo -------------------------------------
 
 // find user by email and send a password reset link
 router.post('/forgot-password', async (req, res) => {
@@ -42,6 +43,10 @@ router.post('/forgot-password', async (req, res) => {
         if (!user) return res.status(404).json({ message: 'User not found'});
 
         const resetToken = jwt.sign({ userId: user._id }, secretKey, { expiresIn: '1h'});
+
+        user.resetToken = resetToken;
+        await user.save();
+
         const resetLink = `https://127.0.0.1:4000/reset-password?token=${resetToken}`;
 
         await transporter.sendMail({
@@ -64,6 +69,9 @@ router.get('/reset-password', async (req,res) => {
 
     try {
         jwt.verify(token, secretKey);
+
+        if(User.resetToken !== token) throw Error({ message: 'Invalid Token' });
+
         res.status(200).json({ message: 'Token is valid' });
     } catch (err) {
         console.log(err);
@@ -71,7 +79,7 @@ router.get('/reset-password', async (req,res) => {
     }
 });
 
-//resets/ updates users password
+//updates users password
 router.post('./reset-password', async (req,res) => {
     const { token, newPassword } = req.body;
     const secretKey = process.env.JWT_KEY;

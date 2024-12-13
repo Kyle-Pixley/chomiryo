@@ -51,9 +51,6 @@ function RecipeList({ viewingRecipePage }) {
     navigate('/recipe', { state: { recipeId }});
   }
 
-
-
-
   return (
     <div id='recipe-list-component'>
       <SearchPosts 
