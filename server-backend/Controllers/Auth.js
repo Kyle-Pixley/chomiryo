@@ -68,7 +68,28 @@ router.post("/login", async (req, res) => {
     }
 });
 
-//todo write route for updating the use password put
+//todo fix route it is not actually changing the password and probably need to incorporate bcrypt
+router.put('/updatePassword/:id', async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const { password } = req.body;
+
+        const foundUser = await User.findById(userId);
+
+        if (!foundUser) throw Error("User Not Found");
+
+        if (!password) throw Error("No New Password");
+
+        const updatedUser = await foundUser.save();
+
+        res.status(200).json(updatedUser);
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Error could not update password"})
+    }
+});
+//todo ========================================================
 
 //find one user by email 
 router.post("/find-email", async (req, res) => {
