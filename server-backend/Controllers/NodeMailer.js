@@ -47,7 +47,7 @@ console.log('forgot password route hit')
         user.resetToken = resetToken;
         await user.save();
 
-        const resetLink = `http://127.0.0.1:5173/reset-password?token=${resetToken}`;
+        const resetLink = `http://127.0.0.1:5173/resetPassword?token=${resetToken}`;
 
         await transporter.sendMail({
             from: process.env.EMAIL,

@@ -68,6 +68,8 @@ router.post("/login", async (req, res) => {
     }
 });
 
+//todo write route for updating the use password put
+
 //find one user by email 
 router.post("/find-email", async (req, res) => {
     try {
