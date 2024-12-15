@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import './PasswordReset.css';
 
 function PasswordReset() {
@@ -15,6 +15,7 @@ function PasswordReset() {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const token = queryParams.get('token');
+    const navigate = useNavigate();
 
     const handleResetPasswordButton = e => {
         e.preventDefault();
@@ -109,6 +110,15 @@ function PasswordReset() {
         )
     };
 
+    // redirects to login page 5 seconds after the password has been updated
+    useEffect(() => {
+        if(isPasswordUpdated) {
+            setTimeout(() => {
+                navigate('/');
+            }, '5000')
+        }
+    }, [isPasswordUpdated])
+
   return (
     <div id='reset-password-component'>
         { linkFromEmail 
@@ -123,11 +133,11 @@ function PasswordReset() {
             ? (
                 <div>
                     <p className='password-updated-text'>Password Updated</p>
-                    <p className='password-updated-text'>You may close this window.</p>
+                    <p className='password-updated-text'>You will be redirected to the login page.</p>
                 </div>
             ): null }
     </div>
   )
 }
 
-export default PasswordReset
+export default PasswordReset;
