@@ -43,6 +43,7 @@ function PasswordReset() {
         setPasswordDoNotMatch(false);
         if(newPassword === verifyNewPassword) {
             //todo handle fetch to update password and a timeout (to convey to the user that the update was a success) + redirect to home page??? or make the title a link to the home page??? not sure yet
+            const url = `http://127.0.0.1:4000/auth/updatePassword`
         } else {
             setPasswordDoNotMatch(true);
         }

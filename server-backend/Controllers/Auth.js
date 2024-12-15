@@ -69,13 +69,15 @@ router.post("/login", async (req, res) => {
 });
 
 //todo fix route it is not actually changing the password and probably need to incorporate bcrypt
-router.put('/updatePassword/:token', async (req, res) => {
+router.put('/updatePassword', async (req, res) => {
     try {
-        const payload = jwt.verify(req.params.token, process.env.JWT_KEY);
+        
+        const { password, token } = req.body;
+
+        const payload = jwt.verify(token, process.env.JWT_KEY);
 
         const userId = payload.userId
 
-        const { password } = req.body;
         if (!password) throw Error("No New Password");
 
         const foundUser = await User.findById(userId);
