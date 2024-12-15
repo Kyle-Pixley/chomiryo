@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import './PasswordReset.css';
 
 function PasswordReset() {
@@ -10,6 +10,8 @@ function PasswordReset() {
     const [ newPassword, setNewPassword ] = useState('');
     const [ verifyNewPassword, setVerifyNewPassword ] = useState('');
     const [ passwordsDoNotMatch, setPasswordDoNotMatch ] = useState(false);
+    const [ isPasswordUpdated, setIsPasswordUpdated ] = useState(false);
+
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const token = queryParams.get('token');
@@ -42,8 +44,22 @@ function PasswordReset() {
         e.preventDefault();
         setPasswordDoNotMatch(false);
         if(newPassword === verifyNewPassword) {
-            //todo handle fetch to update password and a timeout (to convey to the user that the update was a success) + redirect to home page??? or make the title a link to the home page??? not sure yet
+            console.log('this is hit')
+            // const { token } = useParams();
+            const body = { token: token, newPassword: newPassword }
             const url = `http://127.0.0.1:4000/auth/updatePassword`
+            const options = {
+                method: "PUT",
+                body: JSON.stringify(body),
+                headers: new Headers({
+                    "Content-Type" : "application/json"
+                })
+            }
+            fetch(url, options)
+                .then(res => res.json())
+                .then(setIsPasswordUpdated(true))
+                .catch(err => console.log("Error: ", err))
+
         } else {
             setPasswordDoNotMatch(true);
         }
@@ -103,6 +119,13 @@ function PasswordReset() {
                 <p id='passwords-do-not-match-text'>Passwords do not match</p>
             )
             : null }
+        { isPasswordUpdated 
+            ? (
+                <div>
+                    <p className='password-updated-text'>Password Updated</p>
+                    <p className='password-updated-text'>You may close this window.</p>
+                </div>
+            ): null }
     </div>
   )
 }
