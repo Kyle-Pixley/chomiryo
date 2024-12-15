@@ -9,7 +9,7 @@ router.post("/register", async (req, res) => {
     try {
         const { email, userName, password } = req.body;
 
-        if (!email || !userName || !password) throw Error("Please provide all necissary information.");
+        if (!email || !userName || !password) throw Error("Please provide all necessary information.");
 
         const newUser = new User({ email, userName, password: bcrypt.hashSync(password, SALT) });
 
@@ -69,20 +69,26 @@ router.post("/login", async (req, res) => {
 });
 
 //todo fix route it is not actually changing the password and probably need to incorporate bcrypt
-router.put('/updatePassword/:id', async (req, res) => {
+router.put('/updatePassword/:token', async (req, res) => {
     try {
-        const userId = req.params.id;
+        const payload = jwt.verify(req.params.token, process.env.JWT_KEY);
+
+        const userId = payload.userId
+
         const { password } = req.body;
-
-        const foundUser = await User.findById(userId);
-
-        if (!foundUser) throw Error("User Not Found");
-
         if (!password) throw Error("No New Password");
 
-        const updatedUser = await foundUser.save();
+        const foundUser = await User.findById(userId);
+        if (!foundUser) throw Error("User Not Found");
 
-        res.status(200).json(updatedUser);
+        const salt = parseInt(process.env.SALT);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        foundUser.password = hashedPassword;
+
+        await foundUser.save();
+
+        res.status(200).json({ message: 'Password Updated'});
 
     } catch (err) {
         console.log(err);
