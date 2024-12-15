@@ -68,23 +68,22 @@ router.post("/login", async (req, res) => {
     }
 });
 
-//todo fix route it is not actually changing the password and probably need to incorporate bcrypt
 router.put('/updatePassword', async (req, res) => {
     try {
         
-        const { password, token } = req.body;
+        const { newPassword, token } = req.body;
 
         const payload = jwt.verify(token, process.env.JWT_KEY);
 
         const userId = payload.userId
 
-        if (!password) throw Error("No New Password");
+        if (!newPassword) throw Error("No New Password");
 
         const foundUser = await User.findById(userId);
         if (!foundUser) throw Error("User Not Found");
 
         const salt = parseInt(process.env.SALT);
-        const hashedPassword = await bcrypt.hash(password, salt);
+        const hashedPassword = await bcrypt.hash(newPassword, salt);
 
         foundUser.password = hashedPassword;
 
@@ -97,7 +96,6 @@ router.put('/updatePassword', async (req, res) => {
         res.status(500).json({ message: "Error could not update password"})
     }
 });
-//todo ========================================================
 
 //find one user by email 
 router.post("/find-email", async (req, res) => {
