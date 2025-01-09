@@ -18,7 +18,8 @@ router.post("/register", async (req, res) => {
         const token = jwt.sign(
             { _id: newUser._id },
             JWT_KEY,
-            { expiresIn: 60 * 60 * 24 * 14}
+            // todo change to longer
+            { expiresIn: 60 * 60 * 24 }
         )
         console.log(newUser);
 
@@ -52,7 +53,8 @@ router.post("/login", async (req, res) => {
         const token = jwt.sign(
             { _id: foundUser._id },
             JWT_KEY,
-            { expiresIn: 60 * 60 * 24 * 14 }
+            //todo change to longer 
+            { expiresIn: 60 * 60 * 24 }
         )
 
         res.status(200).json({

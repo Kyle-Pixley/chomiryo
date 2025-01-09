@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { jwtDecode } from 'jwt-decode';
 import Auth from './Components/Auth';
 import FrontPage from './Components/FrontPage/FrontPage';
 import './App.css';
@@ -15,6 +16,15 @@ function App() {
       setSessionToken(localStorage.getItem("token"))
     }
   }, [])
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    console.log(jwtDecode(token), 'here');
+    if( token && token.iat + 86400 >= token.exp) {
+        localStorage.clear();
+        setSessionToken(undefined);
+    }
+}, [])
 
   const updateLocalStorage = newToken => {
     localStorage.setItem("token", newToken)
