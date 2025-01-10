@@ -58,17 +58,19 @@ function PostRecipe({ setPostCreated }) {
 
         let recipePhotoUrl = "";
 
+        console.log(recipePhoto, 'recipe photo')
+
         if (recipePhoto) {
             const uploadUrl = await fetch(s3Url).then(res => res.json());
 
             await fetch(uploadUrl, {
                 method: "PUT",
                 headers: {
-                    "Content-type" : "multipart/form-data"
+                    "Content-type" : "image/png"
                 },
                 body: recipePhoto
             }).then(res => console.log(res));
-
+            console.log(uploadUrl)
             const imgUrl = uploadUrl.split("?")[0];
             recipePhotoUrl = imgUrl;
         };
@@ -166,12 +168,18 @@ function PostRecipe({ setPostCreated }) {
             <label className='post-recipe-labels'>
                 Upload Photo
             </label>
-            <input
+            { recipePhoto === ''
+            ? <input
                 type='file'
                 name='my-file'
                 id='file-upload'
                 accept='.jpeg, .jpg, .png'
-                onChange={e => setRecipePhoto(e)}/>
+                onChange={e => {
+                    setRecipePhoto(e.target.files[0])
+                    console.log(e)}}/>
+            : <img 
+                src={URL.createObjectURL(recipePhoto)}
+                id='recipe-photo-preupload' /> }
             <button
                 type='submit'
                 onClick={handlePostSubmit}>

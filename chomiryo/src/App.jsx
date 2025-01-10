@@ -19,7 +19,6 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem('token')
-    console.log(jwtDecode(token), 'here');
     if( token && token.iat + 86400 >= token.exp) {
         localStorage.clear();
         setSessionToken(undefined);

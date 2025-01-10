@@ -5,13 +5,13 @@ const crypto = require("crypto");
 
 const region = "us-east-2";
 const bucketName = "chomiryo-bucket";
-const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY_ID;
+const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
+const AWS_SECRET_ACCESS_KEY_ID = process.env.AWS_SECRET_ACCESS_KEY_ID;
 
 const s3 = new aws.S3({
     region,
-    accessKeyId,
-    secretAccessKey,
+    AWS_ACCESS_KEY_ID,
+    AWS_SECRET_ACCESS_KEY_ID,
     signatureVersion: "v4",
 });
 

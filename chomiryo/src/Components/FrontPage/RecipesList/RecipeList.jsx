@@ -51,6 +51,10 @@ function RecipeList({ viewingRecipePage }) {
     navigate('/recipe', { state: { recipeId }});
   }
 
+  useEffect(() => {
+    allRecipes.forEach((recipe) => console.log(recipe.recipePhoto, 'here'))
+  }, [])
+
   return (
     <div id='recipe-list-component'>
       <SearchPosts 
@@ -61,7 +65,13 @@ function RecipeList({ viewingRecipePage }) {
               <div id='individual-recipe' key={recipe._id}>
                 <div 
                   id='recipe-image'
-                  onClick={() => handleRecipeClick(recipe._id)}></div>
+                  onClick={() => handleRecipeClick(recipe._id)}>
+                    <img 
+                      src={recipe.recipePhoto}
+                      alt={`Photo of ${recipe.title}`} 
+                      width='300'
+                      height='300' />
+                  </div>
                 <h3 
                   id='recipe-title'
                   key={recipe._id}>
