@@ -8,6 +8,9 @@ const Post = new mongoose.Schema (
             ref: "user",
             required: true
         },
+        recipePhoto: {
+            type: String,
+        },
         title: {
             type: String,
             required: true

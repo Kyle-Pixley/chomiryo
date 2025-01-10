@@ -5,13 +5,14 @@ const sessionValidation = require("../Middlewares/Session");
 
 router.post("/create", sessionValidation, async (req, res) => {
     try {
-        const { title, instructions } = req.body;
+        const { recipePhoto, title, instructions } = req.body;
         const rating = 0;
 
         if (!title || !instructions.ingredients || !instructions.steps) throw Error("Please provide all information for the recipe.");
         console.log(req.user)
         const newPost = new Post({
             user: req.user.id,
+            recipePhoto,
             title,
             instructions,
             rating
@@ -33,7 +34,7 @@ router.post("/create", sessionValidation, async (req, res) => {
 router.put("/updatepost/:id", sessionValidation, async (req, res) => {
     try {
         const postId = req.params.id;
-        const { title, instructions } = req.body;
+        const { recipePhoto, title, instructions } = req.body;
 
         const foundPost = await Post.findById(postId);
 
@@ -41,6 +42,7 @@ router.put("/updatepost/:id", sessionValidation, async (req, res) => {
 
         if (foundPost.user.toString() !== req.user._id.toString()) throw Error("you do not have permission to edit this recipe")
         
+        if (recipePhoto) foundPost.recipePhoto = recipePhoto;
         if (title) foundPost.title = title;
         if (instructions) foundPost.instructions = instructions;
 

@@ -4,6 +4,7 @@ import './PostRecipe.css';
 
 function PostRecipe({ setPostCreated }) {
 
+    const [recipePhoto, setRecipePhoto ] = useState('');
     const [ recipeTitle, setRecipeTitle ] = useState('');
     const [ ingredients, setIngredients ] = useState(['1 cup of milk']);
     const [ recipeSteps, setRecipeSteps ] = useState(['Preheat oven to 350 degrees fahrenheit']);
@@ -49,12 +50,34 @@ function PostRecipe({ setPostCreated }) {
         textarea.style.height = `${textarea.scrollHeight}px`
     }
     
-    const handlePostSubmit = e => {
+    const handlePostSubmit = async e => {
         e.preventDefault();
 
         const url = "http://127.0.0.1:4000/post/create"
+        const s3Url = "http://127.0.0.1:4000/utilities/s3-url";
 
-        const body = { title: recipeTitle, instructions: instructions };
+        let recipePhotoUrl = "";
+
+        if (recipePhoto) {
+            const uploadUrl = await fetch(s3Url).then(res => res.json());
+
+            await fetch(uploadUrl, {
+                method: "PUT",
+                headers: {
+                    "Content-type" : "multipart/form-data"
+                },
+                body: recipePhoto
+            }).then(res => console.log(res));
+
+            const imgUrl = uploadUrl.split("?")[0];
+            recipePhotoUrl = imgUrl;
+        };
+
+        const body = { 
+            recipePhoto: recipePhotoUrl,
+            title: recipeTitle, 
+            instructions: instructions 
+        };
         console.log('this is the body ', body);
 
         fetch(url, {
@@ -140,6 +163,15 @@ function PostRecipe({ setPostCreated }) {
                         Delete Last Step
                 </button>
             </div>
+            <label className='post-recipe-labels'>
+                Upload Photo
+            </label>
+            <input
+                type='file'
+                name='my-file'
+                id='file-upload'
+                accept='.jpeg, .jpg, .png'
+                onChange={e => setRecipePhoto(e)}/>
             <button
                 type='submit'
                 onClick={handlePostSubmit}>

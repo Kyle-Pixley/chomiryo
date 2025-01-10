@@ -1,10 +1,12 @@
+require('dotenv').config();
+
 const aws = require("aws-sdk");
 const crypto = require("crypto");
 
 const region = "us-east-2";
 const bucketName = "chomiryo-bucket";
-const accessKeyId = process.env.AWS_S3_ACCESS_KEY_ID;
-const secretAccessKey = process.env.AWS_S3_SECRET_ACCESS_KEY_ID;
+const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY_ID;
 
 const s3 = new aws.S3({
     region,

@@ -15,6 +15,7 @@ const authController = require("./Controllers/Auth");
 const postController = require("./Controllers/Post");
 const commentController = require("./Controllers/Comment");
 const nodemailerController = require("./Controllers/NodeMailer");
+const utilitiesController = require("./Controllers/Utilities");
 const sessionValidation = require("./Middlewares/Session");
 
 
@@ -26,7 +27,7 @@ app.use("/auth", authController);
 app.use("/post", sessionValidation, postController);
 app.use("/comment", sessionValidation, commentController);
 app.use("/email", nodemailerController);
-//app.use utilities 'S3 bucket'??
+app.use("/utilities", utilitiesController);
 
 
 app.listen(PORT, HOST, () => {
