@@ -30,8 +30,6 @@ function App() {
     setSessionToken(newToken)
   };
 
-
-
   const handleLoggedIn = () => {
     return !sessionToken
       ? <Auth 

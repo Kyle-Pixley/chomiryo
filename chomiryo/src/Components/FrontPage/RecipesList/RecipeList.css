@@ -17,10 +17,12 @@
     display: flex;
     flex-direction: column;
 }
-#recipe-image {
+#recipe-image-border {
+    border: 1px solid black;
+}
+#recipe-image, #recipe-image-border {
     height: 10vw;
     width: 15vw;
-    border: 1px solid black;
     margin: auto;
 }
 #recipe-title {

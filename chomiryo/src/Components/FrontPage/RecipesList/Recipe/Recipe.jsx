@@ -72,7 +72,7 @@ function Recipe({ viewingRecipePage }) {
         <div id='single-recipe-title-and-image'>
             <img 
                 id='single-recipe-image'
-                src={walnut} />
+                src={singleRecipe.recipePhoto} />
 
             <div style={{
                     width: "100%", 

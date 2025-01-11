@@ -64,9 +64,10 @@ function RecipeList({ viewingRecipePage }) {
             {Array.isArray(allRecipes) && allRecipes.length > 0 ? ( allRecipes.map((recipe, i) => (
               <div id='individual-recipe' key={recipe._id}>
                 <div 
-                  id='recipe-image'
+                  id='recipe-image-border'
                   onClick={() => handleRecipeClick(recipe._id)}>
                     <img 
+                      id='recipe-image'
                       src={recipe.recipePhoto}
                       alt={`Photo of ${recipe.title}`} 
                       width='300'
