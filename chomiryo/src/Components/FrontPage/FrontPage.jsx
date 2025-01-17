@@ -49,15 +49,17 @@ function FrontPage({ logout, postRecipe, setPostRecipe }) {
     
   return (
     <div id='front-page-component'>
-        <div id='top-banner'>might change this depending on the "weight" of the pictures users submit</div>
-        <div id='top-banner-bottom-border'>
-            <p 
-                id='create-recipe-button'
-                onClick={handlePostRecipeClick}>{postRecipe ? 'Recipes' : 'Post Recipe'}</p>
-            <p 
-                id='logout-button'
-                onClick={handleLogout}>Logout</p>
-        </div>
+        <div id='top-banner-background'>
+            <div id='top-banner'>CHOMIRYO</div>
+                <div id='top-banner-post-logout-parent'>
+                <p 
+                    id='create-recipe-button'
+                    onClick={handlePostRecipeClick}>{postRecipe ? 'Recipes' : 'Post Recipe'}</p>
+                <p 
+                    id='logout-button'
+                    onClick={handleLogout}>Logout</p>
+                </div>
+            </div>
         <Routes>
             <Route
                 path='/'

@@ -108,6 +108,7 @@ function PostRecipe({ setPostCreated }) {
                 className='post-recipe-inputs'
                 type='text'
                 value={recipeTitle}
+                maxLength="35"
                 onChange={e => setRecipeTitle(e.target.value)}>
             </input>
             <label
@@ -173,13 +174,20 @@ function PostRecipe({ setPostCreated }) {
                 type='file'
                 name='my-file'
                 id='file-upload'
-                accept='.jpeg, .jpg, .png'
+                accept='.jpeg, .jpg, .png, webp'
                 onChange={e => {
                     setRecipePhoto(e.target.files[0])
                     console.log(e)}}/>
-            : <img 
-                src={URL.createObjectURL(recipePhoto)}
-                id='recipe-photo-preupload' /> }
+            : <div id='recipe-photo-preupload-button-parent'>
+                <img 
+                    src={URL.createObjectURL(recipePhoto)}
+                    id='recipe-photo-preupload' /> 
+                <button 
+                    id='delete-preupload-photo-button'
+                    onClick={() => setRecipePhoto('')}>
+                    Delete Photo
+                </button>
+             </div> }
             <button
                 type='submit'
                 onClick={handlePostSubmit}>
