@@ -13,8 +13,9 @@ function Recipe({ viewingRecipePage }) {
     const [ ingredientsList, setIngredientsList ] = useState([]);
     const [ uploadedBy, setUploadedBy ] = useState('');
     const [ stepsList, setStepsList ] = useState([]);
-
     const [ updateRecipe, setUpdateRecipe ] = useState(false);
+    const [ editingRecipe, setEditingRecipe ] = useState(false);
+
 
     //fetches the single post based on the recipe._id aka recipeId
     useEffect(() => {
@@ -63,9 +64,35 @@ function Recipe({ viewingRecipePage }) {
         }
     }, [uploadedBy]);
 
+    // handle changing the list elements to inputs so the user can change anything about the recipe 
     const handleUpdateRecipe = () => {
-        console.log('This will update the recipe')
+        setEditingRecipe(true);
+        if(editingRecipe) {
+            window.location.reload();
+        }
     }
+
+    // handles the size of the inputs based on the text that was already in the post and if the user edits it 
+        const changeRows = (textarea) => {
+            if (textarea) {
+                textarea.rows = 1;
+                const currentRows = Math.floor(textarea.scrollHeight / textarea.clientHeight);
+                textarea.rows = currentRows;
+            }
+        }
+
+    // sets the useStates of the steps and ingredients list to what the user updates 
+        const handleStepsInputChange = (value, i) => {
+            const updatedSteps = [...stepsList];
+            updatedSteps[i] = value;
+            setStepsList(updatedSteps);
+        }
+        const handleIngredientsInputChange = (value, i) => {
+            const updatedIngredients = [...ingredientsList];
+            updatedIngredients[i] = value;
+            setIngredientsList(updatedSteps);
+        }
+    
 
   return (
     <div id='single-recipe-component'>
@@ -99,10 +126,20 @@ function Recipe({ viewingRecipePage }) {
 
                     {ingredientsList 
                         ? ingredientsList.map((item, i) =>(
-                            <li
+                            editingRecipe ? (
+                                <textarea
+                                    className='editing-recipe-inputs'
+                                    key={i}
+                                    value={item}
+                                    onChange={e => handleIngredientsInputChange(e.target.value,i)}
+                                    onInput={e => changeRows(e.target)} />
+                                ) : (
+                                <li
                                 key={i}>
-                                {item}
-                            </li>
+                                    {item}
+                                </li>
+                            )
+
                         )) 
                         : "Loading..."}
                 </ul>
@@ -112,11 +149,20 @@ function Recipe({ viewingRecipePage }) {
                 <ol>
                 {stepsList
                     ? stepsList.map((item,i) => (
-                            <li
-                                key={i}>
-                                {item}
-                            </li>
-                        ))
+                        editingRecipe ? (
+                            <textarea
+                                className='editing-recipe-inputs'
+                                key={i}
+                                value={item}
+                                onChange={e => handleStepsInputChange(e.target.value, i)} 
+                                onInput={e => changeRows(e.target)}/>
+                            ) : (
+                                <li
+                                    key={i}>
+                                    {item}
+                                </li>
+                                )
+                            ))
                         : "Loading..."}
                 </ol>
             </div>
@@ -126,7 +172,7 @@ function Recipe({ viewingRecipePage }) {
                 <button
                     id='update-recipe-button'
                     onClick={() => handleUpdateRecipe()}>
-                    Update Recipe
+                    { editingRecipe ? 'Cancel Editing' : 'Edit Recipe'}
                 </button>
             ) 
             : null }

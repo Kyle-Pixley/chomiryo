@@ -28,8 +28,17 @@
 #steps > h3, #steps > ol { 
     text-align: right;
 }
+ol {
+    display: flex;
+    flex-direction: column;
+}
 li {
     border-bottom: 1px solid black;
+    font-size: 1.5vw;
+}
+.editing-recipe-inputs {
+    max-width: 40vw;
+    width: 40vw;
     font-size: 1.5vw;
 }
 #update-recipe-button {
