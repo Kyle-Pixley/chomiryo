@@ -17,6 +17,7 @@ function Recipe({ viewingRecipePage }) {
     const [ stepsList, setStepsList ] = useState([]);
     const [ updateRecipe, setUpdateRecipe ] = useState(false);
     const [ editingRecipe, setEditingRecipe ] = useState(false);
+    const [ updatedRecipeMessage, setUpdatedRecipeMessage ] = useState('');
 
 
     //fetches the single post based on the recipe._id aka recipeId
@@ -92,7 +93,7 @@ function Recipe({ viewingRecipePage }) {
         const handleIngredientsInputChange = (value, i) => {
             const updatedIngredients = [...ingredientsList];
             updatedIngredients[i] = value;
-            setIngredientsList(updatedSteps);
+            setIngredientsList(updatedIngredients);
         };
 
         useEffect(() => {
@@ -101,32 +102,57 @@ function Recipe({ viewingRecipePage }) {
             }
         }, [singleRecipe])
 
-        const handleSubmitRecipeUpdate = () => {
-            const url = `http://127.0.0.1:4000/post/updatepost/${''}`;
-            const options = {
-                headers: new Headers({
-                    "Content-Type" : "application/json",
-                    "authorization" : localStorage.getItem('token')
-                })
+        const handleSubmitRecipeUpdate = async e => {
+            // e.preventDefault();
+            console.log(singleRecipe)
+            let updatedPostBody = {}
+            updatedPostBody._id = singleRecipe._id;
+            updatedPostBody.title = singleRecipe.title;
+
+            if(singleRecipe.instructions.ingredients !== ingredientsList || singleRecipe.instructions.stepsList !== stepsList) {
+                updatedPostBody.instructions = {};
             }
-            fetch(url,options)
+
+            if(singleRecipe.instructions.ingredients !== ingredientsList) {
+                updatedPostBody.instructions.ingredients = ingredientsList;
+            } else updatedPostBody.instructions.ingredients = singleRecipe.instructions.ingredients;
+
+            if(singleRecipe.instructions.steps !== stepsList) {
+                updatedPostBody.instructions.steps = stepsList
+            } else updatedPostBody.instructions.steps = singleRecipe.instructions.steps
+
+            if(photoChanged) {
+                const s3Url = "http://127.0.0.1:4000/utilities/s3-url";
                 
+                const uploadUrl = await fetch(s3Url).then(res => res.json());
+                
+                await fetch(uploadUrl, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type" : "multipart/form-data"
+                    },
+                    body: recipePhoto
+                }).then(res => console.log(res.status));
+
+                const imageUrl = uploadUrl.split("?")[0];
+            };
+
+            fetch(`http://127.0.0.1:4000/post/updatepost/${singleRecipe._id}`, {
+                method: "PUT",
+                headers: {
+                    'Content-Type' : "application/json",
+                    'authorization' : localStorage.getItem('token')
+                },
+                body: JSON.stringify(updatedPostBody),
+            })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+            })
+
+            setUpdatedRecipeMessage('Recipe Updated Successfully');
+            setEditingRecipe(false);
         }
-        // useEffect(() => {
-            // if(singleRecipe.user) {
-                // const url = `http://127.0.0.1:4000/auth/${singleRecipe.user}`
-                // const options = {
-                    // headers: new Headers({
-                        // "Content-Type" : "application/json",
-                        // "authorization" : localStorage.getItem("token")
-                    // })
-                // }
-                // fetch(url,options)
-                    // .then(res => res.json())
-                    // .then(data => setUploadedBy(data))
-                    // .catch(err => err.message)
-            // }
-        // }, [singleRecipe])
     
 
   return (
@@ -221,21 +247,21 @@ function Recipe({ viewingRecipePage }) {
                 </ol>
             </div>
         </div>
-        {updateRecipe
-            ? (
-                <div id='update-recipe-buttons-parent'>
                     <button
                         id='update-recipe-button'
                         onClick={() => toggleUpdateRecipe()}>
                         { editingRecipe ? 'Cancel Editing' : 'Edit Recipe'}
                     </button>
+        { editingRecipe
+            ? (
                     <button
+                        id='submit-recipe-changes-button'
                         onClick={() => handleSubmitRecipeUpdate()}>
                         Submit Changes
                     </button>
-                </div>
             ) 
             : null }
+            <p id='updated-recipe-message'>{updatedRecipeMessage}</p>
         <div 
             id="recipe-bottom-border">
         </div>

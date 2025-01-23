@@ -65,11 +65,14 @@ li {
     width: 40vw;
     font-size: 1.5vw;
 }
-#update-recipe-buttons-parent {
-    
-}
 #update-recipe-button {
     margin: 2vh 0 5vh 0;
+}
+#submit-recipe-changes-button {
+    margin-top: 0;
+}
+#updated-recipe-message {
+    align-self: center;
 }
 #recipe-bottom-border {
     height: 3px;
