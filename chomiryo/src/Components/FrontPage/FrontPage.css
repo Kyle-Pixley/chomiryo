@@ -8,13 +8,11 @@
 }
 #top-banner {
     display: flex;
-    align-items: flex-end;
     height: 12vh;
     min-height: 60px;
     color: #196f3d;
     font-weight: 600;
     font-size: 5vw;
-    text-align: end;
     padding-left: 2vw;
 }
 #top-banner-post-logout-parent {

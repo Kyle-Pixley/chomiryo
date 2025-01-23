@@ -1,4 +1,4 @@
-#single-recipe-component {
+#single-recipe-component, #photo-swap-photo-button-parent {
     display: flex;
     flex-direction: column;
 }
@@ -11,6 +11,30 @@
 #single-recipe-image {
     height: 15vw;
     width: 20vw;
+}
+#edit-recipe-photo-parent {
+    margin: auto;
+    margin-top: 12px;
+    font-size: 1.2vw;
+    font-weight: 600;
+}
+#edit-recipe-photo-parent > label {
+
+}
+#edit-recipe-photo-parent > input {
+    display: none;
+}
+#edit-recipe-photo-parent label {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #196f3d;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+}
+#swap-photo-button {
+    width: 90%;
 }
 #single-recipe-title {
     text-align: center;
@@ -40,6 +64,9 @@ li {
     max-width: 40vw;
     width: 40vw;
     font-size: 1.5vw;
+}
+#update-recipe-buttons-parent {
+    
 }
 #update-recipe-button {
     margin: 2vh 0 5vh 0;

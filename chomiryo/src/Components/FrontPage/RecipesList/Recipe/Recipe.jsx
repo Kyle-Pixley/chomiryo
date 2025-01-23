@@ -10,6 +10,8 @@ function Recipe({ viewingRecipePage }) {
     const location = useLocation();
     const recipeId = location.state?.recipeId;
     const [ singleRecipe, setSingleRecipe ] = useState({});
+    const [ recipePhoto, setRecipePhoto ] = useState('');
+    const [ photoChanged, setPhotoChanged ] = useState(false);
     const [ ingredientsList, setIngredientsList ] = useState([]);
     const [ uploadedBy, setUploadedBy ] = useState('');
     const [ stepsList, setStepsList ] = useState([]);
@@ -65,7 +67,7 @@ function Recipe({ viewingRecipePage }) {
     }, [uploadedBy]);
 
     // handle changing the list elements to inputs so the user can change anything about the recipe 
-    const handleUpdateRecipe = () => {
+    const toggleUpdateRecipe = () => {
         setEditingRecipe(true);
         if(editingRecipe) {
             window.location.reload();
@@ -91,15 +93,68 @@ function Recipe({ viewingRecipePage }) {
             const updatedIngredients = [...ingredientsList];
             updatedIngredients[i] = value;
             setIngredientsList(updatedSteps);
+        };
+
+        useEffect(() => {
+            if(singleRecipe) {
+                setRecipePhoto(singleRecipe.recipePhoto)
+            }
+        }, [singleRecipe])
+
+        const handleSubmitRecipeUpdate = () => {
+            const url = `http://127.0.0.1:4000/post/updatepost/${''}`;
+            const options = {
+                headers: new Headers({
+                    "Content-Type" : "application/json",
+                    "authorization" : localStorage.getItem('token')
+                })
+            }
+            fetch(url,options)
+                
         }
+        // useEffect(() => {
+            // if(singleRecipe.user) {
+                // const url = `http://127.0.0.1:4000/auth/${singleRecipe.user}`
+                // const options = {
+                    // headers: new Headers({
+                        // "Content-Type" : "application/json",
+                        // "authorization" : localStorage.getItem("token")
+                    // })
+                // }
+                // fetch(url,options)
+                    // .then(res => res.json())
+                    // .then(data => setUploadedBy(data))
+                    // .catch(err => err.message)
+            // }
+        // }, [singleRecipe])
     
 
   return (
     <div id='single-recipe-component'>
         <div id='single-recipe-title-and-image'>
+            <div id='photo-swap-photo-button-parent'>
+
             <img 
                 id='single-recipe-image'
-                src={singleRecipe.recipePhoto} />
+                src={photoChanged ? URL.createObjectURL(recipePhoto) : recipePhoto} />
+
+                {editingRecipe ? (
+                    <div id='edit-recipe-photo-parent'>
+                        <label>Change Photo</label>
+                        <input 
+                            type='file'
+                            name='photo-file'
+                            id='photo-file-upload'
+                            accept='.jpeg, .jpg, .png, .webp'
+                            onChange={e => {
+                                setRecipePhoto(e.target.files[0])
+                                setPhotoChanged(true)
+                                console.log(e)}} />
+                    </div>
+                ) : (
+                    null
+                )}
+            </div>
 
             <div style={{
                     width: "100%", 
@@ -121,9 +176,8 @@ function Recipe({ viewingRecipePage }) {
         <div id='ingredients-steps-parent'>
             <div id='ingredients'>
                 <h3>Ingredients</h3>
-                {/* //todo this font sucks */}
-                <ul>
 
+                <ul>
                     {ingredientsList 
                         ? ingredientsList.map((item, i) =>(
                             editingRecipe ? (
@@ -169,11 +223,17 @@ function Recipe({ viewingRecipePage }) {
         </div>
         {updateRecipe
             ? (
-                <button
-                    id='update-recipe-button'
-                    onClick={() => handleUpdateRecipe()}>
-                    { editingRecipe ? 'Cancel Editing' : 'Edit Recipe'}
-                </button>
+                <div id='update-recipe-buttons-parent'>
+                    <button
+                        id='update-recipe-button'
+                        onClick={() => toggleUpdateRecipe()}>
+                        { editingRecipe ? 'Cancel Editing' : 'Edit Recipe'}
+                    </button>
+                    <button
+                        onClick={() => handleSubmitRecipeUpdate()}>
+                        Submit Changes
+                    </button>
+                </div>
             ) 
             : null }
         <div 
