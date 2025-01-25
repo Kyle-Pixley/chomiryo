@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import StarRating from '../../StarRating/StarRating';
 import RecipeComments from './RecipeComments/RecipeComments';
 import walnut from '../../../../assets/walnut.png';
@@ -18,7 +18,8 @@ function Recipe({ viewingRecipePage }) {
     const [ updateRecipe, setUpdateRecipe ] = useState(false);
     const [ editingRecipe, setEditingRecipe ] = useState(false);
     const [ updatedRecipeMessage, setUpdatedRecipeMessage ] = useState('');
-    const [ loadingOrDeleted, setLoadingOrDeleted ] = useState('loading...')
+    const [ loadingOrDeleted, setLoadingOrDeleted ] = useState('loading...');
+    const navigate = useNavigate();
 
 
     //fetches the single post based on the recipe._id aka recipeId
@@ -168,7 +169,8 @@ function Recipe({ viewingRecipePage }) {
                 })
             })
             .then(res => res.json())
-            .then(console.log('navigate to the home page'))
+            .then(navigate('/'))
+            
             //todo navigate to the home page 
         }
 
