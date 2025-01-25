@@ -65,11 +65,26 @@ li {
     width: 40vw;
     font-size: 1.5vw;
 }
-#update-recipe-button {
+#editing-recipe-buttons-parent {
+    display: flex;
+    flex-direction: column;
+}
+#delete-recipe-button {
+    margin-bottom: 13.5px;
+}
+#editing-recipe-bottom-border {
+    border-bottom: 3px solid black;
+    border-radius: 50%;
+    width: 60%;
+    align-self: center;
+    margin-bottom: 13.5px;
+}
+.edit-recipe-buttons {
     margin: 2vh 0 5vh 0;
 }
 #submit-recipe-changes-button {
     margin-top: 0;
+    margin-bottom: 15px;
 }
 #updated-recipe-message {
     align-self: center;

@@ -136,4 +136,20 @@ router.post('/rate/:postId', sessionValidation, async (req, res) => {
     }
 });
 
+router.delete("/delete/:id", async (req, res) => {
+    try {
+        const { id: _id } = req.params;
+        const deletedOne = await Post.findByIdAndDelete({ _id });
+        if (!deletedOne) throw Error("Recipe Not Found");
+        res.status(200).json({
+            message: 'Recipe Successfully deleted',
+            deletedOne
+        })
+    } catch(err) {
+        res.status(500).json({
+            message: err
+        })
+    }
+});
+
 module.exports = router;

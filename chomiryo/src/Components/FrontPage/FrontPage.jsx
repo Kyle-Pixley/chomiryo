@@ -25,7 +25,7 @@ function FrontPage({ logout, postRecipe, setPostRecipe }) {
                 setPostCreated(false);
             }, 5000)
         }
-    }, [ postCreated])
+    }, [ postCreated ])
 
     const displayFrontPage = () => {
         if(postCreated) {

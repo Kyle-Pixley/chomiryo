@@ -18,6 +18,7 @@ function Recipe({ viewingRecipePage }) {
     const [ updateRecipe, setUpdateRecipe ] = useState(false);
     const [ editingRecipe, setEditingRecipe ] = useState(false);
     const [ updatedRecipeMessage, setUpdatedRecipeMessage ] = useState('');
+    const [ loadingOrDeleted, setLoadingOrDeleted ] = useState('loading...')
 
 
     //fetches the single post based on the recipe._id aka recipeId
@@ -69,6 +70,7 @@ function Recipe({ viewingRecipePage }) {
 
     // handle changing the list elements to inputs so the user can change anything about the recipe 
     const toggleUpdateRecipe = () => {
+        setUpdatedRecipeMessage('');
         setEditingRecipe(true);
         if(editingRecipe) {
             window.location.reload();
@@ -152,8 +154,32 @@ function Recipe({ viewingRecipePage }) {
 
             setUpdatedRecipeMessage('Recipe Updated Successfully');
             setEditingRecipe(false);
+        };
+
+        //deletes recipe/post from database
+        const handleDeleteRecipe = () => {
+            console.log('this will delete the recipe')
+            const id = singleRecipe._id;
+            fetch(`http://localhost:4000/post/delete/${id}`, {
+                method: "DELETE",
+                headers: new Headers({
+                    "Content-Type" : "application/json",
+                    "authorization" : localStorage.getItem('token')
+                })
+            })
+            .then(res => res.json())
+            .then(console.log('navigate to the home page'))
+            //todo navigate to the home page 
         }
+
+        useEffect(() => {
+            setTimeout(() => {
+                setLoadingOrDeleted('Recipe has been removed')
+            }, '3000')
+        }, [])
     
+
+
 
   return (
     <div id='single-recipe-component'>
@@ -189,7 +215,7 @@ function Recipe({ viewingRecipePage }) {
                     flexDirection: "column", 
                     alignItems: "center"}}>
                 <h2 id='single-recipe-title'>
-                    {singleRecipe.title ? singleRecipe.title.toUpperCase() : 'loading...'}
+                    {singleRecipe.title ? singleRecipe.title.toUpperCase() : loadingOrDeleted}
                 </h2>
                 <StarRating 
                     recipeRating={singleRecipe.averageRating}
@@ -254,11 +280,21 @@ function Recipe({ viewingRecipePage }) {
                     </button>
         { editingRecipe
             ? (
+                <div id='editing-recipe-buttons-parent'>
                     <button
+                        className='edit-recipe-buttons'
+                        id='delete-recipe-button'
+                        onClick={() => handleDeleteRecipe()}>
+                        Delete Recipe
+                    </button>
+                    <div id='editing-recipe-bottom-border'></div>
+                    <button
+                        className='edit-recipe-buttons'
                         id='submit-recipe-changes-button'
                         onClick={() => handleSubmitRecipeUpdate()}>
                         Submit Changes
                     </button>
+                </div>
             ) 
             : null }
             <p id='updated-recipe-message'>{updatedRecipeMessage}</p>

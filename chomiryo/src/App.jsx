@@ -20,8 +20,7 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem('token')
     if( token && token.iat + 86400 >= token.exp) {
-        localStorage.clear();
-        setSessionToken(undefined);
+        logout();
     }
 }, [])
 
