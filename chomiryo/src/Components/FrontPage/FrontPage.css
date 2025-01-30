@@ -3,6 +3,7 @@
 }
 #top-banner-background {
     background-image: url('../../assets/cutting-board-flipped.JPG');
+    height: 110px;
     display: flex;
     justify-content: space-between;
 }
@@ -12,7 +13,7 @@
     min-height: 60px;
     color: #196f3d;
     font-weight: 600;
-    font-size: 5vw;
+    font-size: 100px;
     padding-left: 2vw;
 }
 #top-banner-post-logout-parent {
@@ -27,4 +28,24 @@
 }
 #create-recipe-button {
     margin-right: 2.5vw;
+}
+@media (max-width: 700px) {
+    #front-page-component {
+        overflow-x: hidden;
+    }
+    #top-banner-background {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #top-banner {
+        font-size: 4vw;
+    }
+    #top-banner-post-logout-parent {
+        border: 1px solid black;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin: 0 6px;
+    }
 }

@@ -19,7 +19,7 @@ router.post("/register", async (req, res) => {
             { _id: newUser._id },
             JWT_KEY,
             // todo change to longer
-            { expiresIn: 60 * 60 * 24 }
+            { expiresIn: 60 * 60 * 24 * 7 }
         )
         console.log(newUser);
 
@@ -37,6 +37,7 @@ router.post("/register", async (req, res) => {
 })
 
 router.post("/login", async (req, res) => {
+    console.log('login route hit')
     try {
         const { userName, password } = req.body;
 
@@ -54,7 +55,7 @@ router.post("/login", async (req, res) => {
             { _id: foundUser._id },
             JWT_KEY,
             //todo change to longer 
-            { expiresIn: 60 * 60 * 24 }
+            { expiresIn: 60 * 60 * 24 * 7 }
         )
 
         res.status(200).json({

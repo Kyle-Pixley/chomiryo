@@ -7,7 +7,10 @@
     font-size: 17vw;
     margin-top: 9vh;
     margin-bottom: 8vh;
+    text-align: center;
+    color: #196f3d;
 }
+
 #auth-form-container {
     display: flex;
     flex-direction: column;
@@ -66,4 +69,15 @@ button:hover {
     display: flex;
     flex-direction: column;
     margin-bottom: 5vh;
+}
+
+@media (max-width: 700px) {
+    button, .input {
+        border-radius: 50px;
+        width: 70%;
+        height: 6vh;
+    }
+}
+@keyframes chop {
+    
 }

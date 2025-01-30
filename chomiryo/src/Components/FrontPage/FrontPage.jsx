@@ -6,10 +6,9 @@ import PostCreated from './PostCreated/PostCreated';
 import Recipe from './RecipesList/Recipe/Recipe';
 import './FrontPage.css';
 
-function FrontPage({ logout, postRecipe, setPostRecipe }) {
+function FrontPage({ logout, postRecipe, setPostRecipe, viewingRecipePage, setViewingRecipePage }) {
 
     const [ postCreated, setPostCreated ] = useState(false);
-    const [ viewingRecipePage, setViewingRecipePage ] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -57,7 +56,7 @@ function FrontPage({ logout, postRecipe, setPostRecipe }) {
                     onClick={handlePostRecipeClick}>{postRecipe ? 'Recipes' : 'Post Recipe'}</p>
                 <p 
                     id='logout-button'
-                    onClick={handleLogout}>Logout</p>
+                    onClick={() => handleLogout()}>Logout</p>
                 </div>
             </div>
         <Routes>

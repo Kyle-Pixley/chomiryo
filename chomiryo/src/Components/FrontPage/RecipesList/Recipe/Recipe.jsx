@@ -19,6 +19,7 @@ function Recipe({ viewingRecipePage }) {
     const [ editingRecipe, setEditingRecipe ] = useState(false);
     const [ updatedRecipeMessage, setUpdatedRecipeMessage ] = useState('');
     const [ loadingOrDeleted, setLoadingOrDeleted ] = useState('loading...');
+    const [ recipeDeleted, setRecipeDeleted ] = useState(false);
     const navigate = useNavigate();
 
 
@@ -169,9 +170,7 @@ function Recipe({ viewingRecipePage }) {
                 })
             })
             .then(res => res.json())
-            .then(navigate('/'))
-            
-            //todo navigate to the home page 
+            .then(setRecipeDeleted(true))
         }
 
         useEffect(() => {
@@ -179,7 +178,6 @@ function Recipe({ viewingRecipePage }) {
                 setLoadingOrDeleted('Recipe has been removed')
             }, '3000')
         }, [])
-    
 
 
 
@@ -187,7 +185,7 @@ function Recipe({ viewingRecipePage }) {
     <div id='single-recipe-component'>
         <div id='single-recipe-title-and-image'>
             <div id='photo-swap-photo-button-parent'>
-
+{/* if recipeDeleted set text saying 'Deleted' accross the screen */}
             <img 
                 id='single-recipe-image'
                 src={photoChanged ? URL.createObjectURL(recipePhoto) : recipePhoto} />

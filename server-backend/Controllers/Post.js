@@ -136,7 +136,7 @@ router.post('/rate/:postId', sessionValidation, async (req, res) => {
     }
 });
 
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/delete/:id", sessionValidation, async (req, res) => {
     try {
         const { id: _id } = req.params;
         const deletedOne = await Post.findByIdAndDelete({ _id });

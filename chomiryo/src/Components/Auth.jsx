@@ -39,8 +39,8 @@ function Auth({ updateLocalStorage }) {
         e.preventDefault();
 
         const url = login 
-            ? "http://127.0.0.1:4000/auth/login"
-            : "http://127.0.0.1:4000/auth/register";
+            ? "http://10.0.0.23:4000/auth/login"
+            : "http://10.0.0.23:4000/auth/register";
             console.log(url)
         
         const body = login 
@@ -132,10 +132,11 @@ function Auth({ updateLocalStorage }) {
 
   return (
     <div id='auth-component'> 
-        <div id='auth-title-text'>
-            <h1 id='auth-title'>CHOMIRYO</h1>
-        </div>
 
+            <h1 id='auth-title'>CHOMIRYO
+                
+            </h1>
+        
         <Routes>
             <Route
                 path='/'
