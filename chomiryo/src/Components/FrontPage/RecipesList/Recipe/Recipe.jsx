@@ -25,7 +25,7 @@ function Recipe({ viewingRecipePage }) {
 
     //fetches the single post based on the recipe._id aka recipeId
     useEffect(() => {
-        const url = `http://127.0.0.1:4000/post/${recipeId}`
+        const url = `http://10.0.0.23:4000/post/${recipeId}`
         const options = {
             headers: new Headers({
                 "Content-Type" : "application/json",
@@ -40,7 +40,7 @@ function Recipe({ viewingRecipePage }) {
 
     useEffect(() => {
         if(singleRecipe.user) {
-            const url = `http://127.0.0.1:4000/auth/${singleRecipe.user}`
+            const url = `http://10.0.0.23:4000/auth/${singleRecipe.user}`
             const options = {
                 headers: new Headers({
                     "Content-Type" : "application/json",
@@ -126,7 +126,7 @@ function Recipe({ viewingRecipePage }) {
             } else updatedPostBody.instructions.steps = singleRecipe.instructions.steps
 
             if(photoChanged) {
-                const s3Url = "http://127.0.0.1:4000/utilities/s3-url";
+                const s3Url = "http://10.0.0.23:4000/utilities/s3-url";
                 
                 const uploadUrl = await fetch(s3Url).then(res => res.json());
                 
@@ -141,7 +141,7 @@ function Recipe({ viewingRecipePage }) {
                 const imageUrl = uploadUrl.split("?")[0];
             };
 
-            fetch(`http://127.0.0.1:4000/post/updatepost/${singleRecipe._id}`, {
+            fetch(`http://10.0.0.23:4000/post/updatepost/${singleRecipe._id}`, {
                 method: "PUT",
                 headers: {
                     'Content-Type' : "application/json",
@@ -162,7 +162,7 @@ function Recipe({ viewingRecipePage }) {
         const handleDeleteRecipe = () => {
             console.log('this will delete the recipe')
             const id = singleRecipe._id;
-            fetch(`http://localhost:4000/post/delete/${id}`, {
+            fetch(`http://10.0.0.23:4000/post/delete/${id}`, {
                 method: "DELETE",
                 headers: new Headers({
                     "Content-Type" : "application/json",
@@ -185,7 +185,7 @@ function Recipe({ viewingRecipePage }) {
     <div id='single-recipe-component'>
         <div id='single-recipe-title-and-image'>
             <div id='photo-swap-photo-button-parent'>
-{/* if recipeDeleted set text saying 'Deleted' accross the screen */}
+{/* if recipeDeleted set text saying 'Deleted' across the screen */}
             <img 
                 id='single-recipe-image'
                 src={photoChanged ? URL.createObjectURL(recipePhoto) : recipePhoto} />

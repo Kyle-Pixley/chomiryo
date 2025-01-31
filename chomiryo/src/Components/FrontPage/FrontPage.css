@@ -39,13 +39,18 @@
         align-items: center;
     }
     #top-banner {
-        font-size: 4vw;
+        margin-top: 1.5vw;
+        font-size: 14vw;
     }
     #top-banner-post-logout-parent {
-        border: 1px solid black;
         width: 100%;
         display: flex;
         justify-content: space-between;
-        margin: 0 6px;
+    }
+    #create-recipe-button {
+        margin-left: 8px;
+    }
+    #logout-button {
+        margin-right: 8px;
     }
 }

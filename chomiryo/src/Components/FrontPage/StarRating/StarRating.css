@@ -7,3 +7,8 @@
 .star-image:hover {
     cursor: pointer;
 }
+@media (max-width: 700px) {
+    .star-image {
+        height: 4.4vw;
+    }
+}

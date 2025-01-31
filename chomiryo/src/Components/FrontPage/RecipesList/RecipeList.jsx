@@ -8,14 +8,13 @@ function RecipeList({ viewingRecipePage }) {
 
   const [ allRecipes, setAllRecipes ] = useState([]);
   const [ searchQuery, setSearchQuery ] = useState('');
-  const [ counter, setCounter ] = useState(0)
   const navigate = useNavigate();
 
   // returns recipes or searched recipes based on if anything is in the search input and the search button is clicked from SearchPosts.jsx (searchQuery)
   useEffect(() => {
     if(searchQuery != '') {
       // todo change this to the search endpoint
-      const url = `http://127.0.0.1:4000/post/search?searchQuery=${encodeURIComponent(searchQuery)}`;
+      const url = `http://10.0.0.23:4000/post/search?searchQuery=${encodeURIComponent(searchQuery)}`;
       const options = {
         method: "get",
         headers: new Headers({
@@ -31,7 +30,7 @@ function RecipeList({ viewingRecipePage }) {
         })
         .catch(err => err.message)
     } else {
-      const url = "http://127.0.0.1:4000/post/"
+      const url = "http://10.0.0.23:4000/post/"
       const options = {
         method: "GET",
         headers: new Headers({
@@ -69,7 +68,7 @@ function RecipeList({ viewingRecipePage }) {
                     <img 
                       id='recipe-image'
                       src={recipe.recipePhoto}
-                      alt={`Photo of ${recipe.title}`} 
+                      alt={`${recipe.title} photo missing`} 
                       width='300'
                       height='300' />
                   </div>

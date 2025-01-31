@@ -37,3 +37,19 @@
     text-align: center;
     font-size: 2vw;
 }
+@media (max-width: 700px) {
+    #recipe-list-component {
+        padding-top: 10px;
+    }
+    #recipe-parent {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    #recipe-image, #recipe-image-border {
+        height: 26vw;
+        width: 40vw;
+    }
+    #recipe-title {
+        height: 3em;
+        font-size: 4vw;
+    }
+}

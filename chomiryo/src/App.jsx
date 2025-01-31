@@ -28,7 +28,6 @@ function App() {
         logout();
     }
       const { exp } = jwtDecode(token.trim());
-      console.log( exp )
       
       
       const currentTime = Date.now() / 1000;

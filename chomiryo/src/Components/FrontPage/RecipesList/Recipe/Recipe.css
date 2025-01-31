@@ -18,9 +18,6 @@
     font-size: 1.2vw;
     font-weight: 600;
 }
-#edit-recipe-photo-parent > label {
-
-}
 #edit-recipe-photo-parent > input {
     display: none;
 }
@@ -79,8 +76,11 @@ li {
     align-self: center;
     margin-bottom: 13.5px;
 }
+#update-recipe-button {
+    margin-bottom: 2vh;
+}
 .edit-recipe-buttons {
-    margin: 2vh 0 5vh 0;
+    margin: 0 0 5vh 0;
 }
 #submit-recipe-changes-button {
     margin-top: 0;
@@ -95,4 +95,11 @@ li {
     background-color: black;
     border-radius: 50%;
     margin: auto;
+}
+@media (max-width: 700px) {
+    #single-recipe-title-and-image {
+        border: 1px solid black;
+
+    }
+    
 }

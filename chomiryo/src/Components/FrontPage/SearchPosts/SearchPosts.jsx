@@ -13,7 +13,7 @@ function SearchPosts({ searchQuery, setSearchQuery }) {
 
   return (
     <div id='search-posts'>
-        <form style={{display: 'flex'}}>
+        <form>
             <input
                 id='search-input'
                 type='text'
