@@ -221,7 +221,7 @@ function Recipe({ viewingRecipePage }) {
                     recipeRating={singleRecipe.averageRating}
                     viewingRecipePage={viewingRecipePage} 
                     recipeId={recipeId} />
-                <h4>Uploaded by: {uploadedBy.foundUser ? uploadedBy.foundUser.userName : 'Unknown'}</h4>
+                <h4 id='uploaded-by'>Uploaded by: {uploadedBy.foundUser ? uploadedBy.foundUser.userName : 'Unknown'}</h4>
             </div>
 
         </div>

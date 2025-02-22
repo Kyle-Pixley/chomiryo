@@ -98,8 +98,33 @@ li {
 }
 @media (max-width: 700px) {
     #single-recipe-title-and-image {
-        border: 1px solid black;
-
+        flex-direction: column;
     }
-    
+    #single-recipe-image {
+        height: 55vw;
+        width: 75vw;
+    }
+    #single-recipe-title {
+        font-size: 8vw;
+        padding-bottom: 0;
+        margin-bottom: -10px;
+    }
+    #uploaded-by {
+        font-size: 6vw;
+    }
+    #ingredients-steps-parent {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    #ingredients, #steps {
+        width: 97%;
+        max-width: none;
+    }
+    ul > li, ol > li {
+        font-size: 4vw;
+    }
+    #recipe-bottom-border {
+        margin-bottom: 12px;
+    }
 }
