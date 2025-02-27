@@ -103,6 +103,9 @@ function Auth({ updateLocalStorage }) {
                 {register()}
                 <input
                     type='text'
+                    autoCapitalize='none'
+                    autoCorrect='off'
+                    spellCheck='false'
                     id='user-name-input'
                     className='input'
                     value={userName}

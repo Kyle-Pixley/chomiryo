@@ -127,4 +127,22 @@ li {
     #recipe-bottom-border {
         margin-bottom: 12px;
     }
+    #edit-recipe-photo-parent {
+        font-size: 4vw;
+        margin-bottom: 6px;
+    }
+    .editing-recipe-inputs {
+        align-self: center;
+        max-width: none;
+        width: 80vw;
+        margin: 0;
+        font-size: 3.5vw;
+    }
+    ol > .editing-recipe-inputs {
+        text-align: right;
+    }
+    ul {
+        display: flex;
+        flex-direction: column;
+    }
 }
