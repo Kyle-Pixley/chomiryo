@@ -98,7 +98,7 @@ function PostRecipe({ setPostCreated }) {
 
   return (
     <div id='post-recipe-component'>
-        <p id='post-recipe-title'>Fill out the from to post your own recipe!</p>
+        
         <form id='post-recipe-form'>
             <label 
                 className='post-recipe-labels'
@@ -128,11 +128,13 @@ function PostRecipe({ setPostCreated }) {
             <div id='add-delete-ingredients-parent'>
                 <button 
                     id='add-ingredients-input-button'
+                    className='add-delete-step-buttons'
                     onClick={addIngredient}>
                         Add Ingredient
                 </button>
                 <button
                     id='delete-ingredients-input-button'
+                    className='add-delete-step-buttons'
                     onClick={deleteLastIngredient}>
                         Delete Last Ingredient
                 </button>
@@ -157,11 +159,13 @@ function PostRecipe({ setPostCreated }) {
             <div id='add-delete-steps-parent'>
                 <button
                     id='add-steps-input-button'
+                    className='add-delete-step-buttons'
                     onClick={addSteps}>
                         Add Step
                 </button>
                 <button
                     id='delete-step-input-button'
+                    className='add-delete-step-buttons'
                     onClick={deleteLastStep}>
                         Delete Last Step
                 </button>
