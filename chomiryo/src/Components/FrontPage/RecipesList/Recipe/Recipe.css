@@ -2,6 +2,14 @@
     display: flex;
     flex-direction: column;
 }
+#recipe-deleted-banner {
+    position: absolute;
+    top: 25vh;
+    left: 6vw;
+    animation: stamp .4s cubic-bezier(.25, .46, .45, .94) both;
+    font-size: 10vw;
+    color: rgba(198, 63, 23, .8);
+}
 #single-recipe-title-and-image, #ingredients-steps-parent {
     display: flex;
     height: fit-content;
@@ -144,5 +152,20 @@ li {
     ul {
         display: flex;
         flex-direction: column;
+    }
+}
+@keyframes stamp {
+    0% {
+        opacity: 0;
+    }
+    10% {
+        opacity: .4;
+        transform-origin: 50% 50%;
+        transform: rotate(2deg) scale(5);
+        transition: all .3s cubic-bezier(.6, .04, .98, .335);
+    }
+    100% {
+        opacity: .8;
+        transform: rotate(12deg) scale(1);
     }
 }

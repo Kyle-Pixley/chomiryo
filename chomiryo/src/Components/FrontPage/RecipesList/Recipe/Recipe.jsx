@@ -183,9 +183,12 @@ function Recipe({ viewingRecipePage }) {
 
   return (
     <div id='single-recipe-component'>
+{recipeDeleted ? (
+    <div id='recipe-deleted-banner'>RECIPE DELETED</div>
+        ) :
+    null }
         <div id='single-recipe-title-and-image'>
             <div id='photo-swap-photo-button-parent'>
-{/* if recipeDeleted set text saying 'Deleted' across the screen */}
             <img 
                 id='single-recipe-image'
                 src={photoChanged ? URL.createObjectURL(recipePhoto) : recipePhoto} />
