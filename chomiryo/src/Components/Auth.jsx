@@ -41,7 +41,6 @@ function Auth({ updateLocalStorage }) {
         const url = login 
             ? "http://10.0.0.23:4000/auth/login"
             : "http://10.0.0.23:4000/auth/register";
-            console.log(url)
         
         const body = login 
             ? { userName, password }
