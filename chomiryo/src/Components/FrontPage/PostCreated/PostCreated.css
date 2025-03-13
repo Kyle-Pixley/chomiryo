@@ -14,12 +14,31 @@
     height: 100%;
     width: 100%;
     background-color: brown;
-    animation: slide-right 5s cubic-bezier(.25, .46, .45, .94) both;
+    animation: slide-right 2s cubic-bezier(.25, .46, .45, .94) both;
+}
+@media (max-width: 700px) {
+    #loading-bar {
+        width: 70vw;
+    }
+    #loading-bar > div {
+        animation: slide-right-small-screen 2s cubic-bezier(.25, .46, .45, .94) both;
+    }
 }
 
 @keyframes slide-right {
     0% {
         transform: translateX(-30vw)
+    }
+    80% {
+        transform: translateX(-8vw);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+@keyframes slide-right-small-screen {
+    0% {
+        transform: translateX(-70vw)
     }
     80% {
         transform: translateX(-8vw);

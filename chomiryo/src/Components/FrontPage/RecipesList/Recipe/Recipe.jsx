@@ -107,8 +107,6 @@ function Recipe({ viewingRecipePage }) {
         }, [singleRecipe])
 
         const handleSubmitRecipeUpdate = async e => {
-            // e.preventDefault();
-            console.log(singleRecipe)
             let updatedPostBody = {}
             updatedPostBody._id = singleRecipe._id;
             updatedPostBody.title = singleRecipe.title;
@@ -150,9 +148,6 @@ function Recipe({ viewingRecipePage }) {
                 body: JSON.stringify(updatedPostBody),
             })
             .then((res) => res.json())
-            .then((data) => {
-                console.log(data);
-            })
 
             setUpdatedRecipeMessage('Recipe Updated Successfully');
             setEditingRecipe(false);

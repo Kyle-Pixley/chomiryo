@@ -28,7 +28,6 @@ function RecipeComments({ recipeId }) {
             if (!res.ok) throw new Error("Failed to post comment");
 
             const data = await res.json();
-            console.log("Comment Posted: ", data);
             setNewComment('');
             setCommentPosted(!commentPosted);
         } catch (err) {

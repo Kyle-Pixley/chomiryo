@@ -58,8 +58,6 @@ function PostRecipe({ setPostCreated }) {
 
         let recipePhotoUrl = "";
 
-        console.log(recipePhoto, 'recipe photo')
-
         if (recipePhoto) {
             const uploadUrl = await fetch(s3Url).then(res => res.json());
 
@@ -80,7 +78,6 @@ function PostRecipe({ setPostCreated }) {
             title: recipeTitle, 
             instructions: instructions 
         };
-        console.log('this is the body ', body);
 
         fetch(url, {
             method: "POST",
@@ -91,7 +88,6 @@ function PostRecipe({ setPostCreated }) {
             })
         })
         .then(res => res.json())
-        .then(data => console.log(data))
         .then(setPostCreated(true))
         .catch(err => console.error("Error: ", err))
     }
