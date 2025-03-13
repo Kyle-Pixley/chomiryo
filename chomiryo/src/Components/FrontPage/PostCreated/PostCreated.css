@@ -1,0 +1,30 @@
+#post-created-component {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10vh;
+}
+#loading-bar {
+    border: 1px solid black;
+    width: 30vw;
+    height: 20px;
+    overflow: hidden;
+}
+#loading-bar > div {
+    height: 100%;
+    width: 100%;
+    background-color: brown;
+    animation: slide-right 5s cubic-bezier(.25, .46, .45, .94) both;
+}
+
+@keyframes slide-right {
+    0% {
+        transform: translateX(-30vw)
+    }
+    80% {
+        transform: translateX(-8vw);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}

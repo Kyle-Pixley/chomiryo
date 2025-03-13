@@ -16,19 +16,13 @@ function FrontPage({ logout, postRecipe, setPostRecipe, viewingRecipePage, setVi
     useEffect(() => {
         setViewingRecipePage(location.pathname === '/recipe');
     }, [location])
-    
-    useEffect(() => {
-        if(postCreated) {
-            setTimeout(() => {
-                setPostRecipe(false);
-                setPostCreated(false);
-            }, 5000)
-        }
-    }, [ postCreated ])
 
     const displayFrontPage = () => {
         if(postCreated) {
-            return <PostCreated />
+            return <PostCreated 
+                        postCreated={postCreated}
+                        setPostCreated={setPostCreated} 
+                        setPostRecipe={setPostRecipe} />
         } else if(postRecipe) {
             return <PostRecipe 
                         setPostCreated={setPostCreated}/>

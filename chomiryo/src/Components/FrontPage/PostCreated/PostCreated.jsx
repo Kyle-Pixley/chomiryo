@@ -1,10 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './PostCreated.css';
 
-function PostCreated() {
+function PostCreated({ postCreated, setPostCreated, setPostRecipe }) {
+const [ postUploaded, setPostUploaded ] = useState(false);
+  useEffect(() => {
+    if(postCreated) {
+        setTimeout(() => {
+            setPostUploaded(true)
+        }, 5000)
+    }
+}, [ postCreated ])
+
+  const handleReturnHome = () => {
+    setPostRecipe(false);
+    setPostCreated(false);
+    setPostUploaded(false);
+  }
+
   return (
-    <div>
-        Thank You! Your recipe sure looks good. You will automatically be redirected to the main page
+    <div id='post-created-component'>
+      {postUploaded
+        ? (
+          <div>Recipe Uploaded</div>
+        )
+        : (
+          <div>Uploading Recipe...</div>
+        )}
+      <div id='loading-bar'><div></div></div>
+      {postUploaded 
+        ? ( 
+          <button
+            id='return-home-button'
+            onClick={(() => handleReturnHome())}>Return Home</button>
+      ) : null}
     </div>
   )
 }

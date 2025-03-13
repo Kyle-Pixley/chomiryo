@@ -160,7 +160,6 @@ function Recipe({ viewingRecipePage }) {
 
         //deletes recipe/post from database
         const handleDeleteRecipe = () => {
-            console.log('this will delete the recipe')
             const id = singleRecipe._id;
             fetch(`http://10.0.0.23:4000/post/delete/${id}`, {
                 method: "DELETE",

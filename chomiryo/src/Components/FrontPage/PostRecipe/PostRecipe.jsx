@@ -191,7 +191,7 @@ function PostRecipe({ setPostCreated }) {
                     onClick={() => setRecipePhoto('')}>
                     Delete Photo
                 </button>
-             </div> }
+            </div> }
             <button
                 type='submit'
                 onClick={handlePostSubmit}>
