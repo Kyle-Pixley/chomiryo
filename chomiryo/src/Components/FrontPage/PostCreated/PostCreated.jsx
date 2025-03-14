@@ -7,7 +7,7 @@ const [ postUploaded, setPostUploaded ] = useState(false);
     if(postCreated) {
         setTimeout(() => {
             setPostUploaded(true)
-        }, 5000)
+        }, 2000)
     }
 }, [ postCreated ])
 

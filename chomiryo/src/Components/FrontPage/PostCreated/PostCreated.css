@@ -5,10 +5,12 @@
     margin-top: 10vh;
 }
 #loading-bar {
+    margin-top: 12px;
     border: 1px solid black;
     width: 30vw;
     height: 20px;
     overflow: hidden;
+    border-radius: 5px;
 }
 #loading-bar > div {
     height: 100%;

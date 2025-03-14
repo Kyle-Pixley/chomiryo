@@ -43,7 +43,8 @@ function FrontPage({ logout, postRecipe, setPostRecipe, viewingRecipePage, setVi
   return (
     <div id='front-page-component'>
         <div id='top-banner-background'>
-            <div id='top-banner'>CHOMIRYO</div>
+            <div id='top-banner'
+                onClick={() => navigate('/')}>CHOMIRYO</div>
                 <div id='top-banner-post-logout-parent'>
                 <p 
                     id='create-recipe-button'

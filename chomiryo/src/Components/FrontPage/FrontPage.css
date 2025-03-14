@@ -15,6 +15,7 @@
     font-weight: 600;
     font-size: 100px;
     padding-left: 2vw;
+    cursor: pointer;
 }
 #top-banner-post-logout-parent {
     font-size: 25px;
