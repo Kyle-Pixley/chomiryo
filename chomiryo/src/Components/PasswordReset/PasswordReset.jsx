@@ -45,8 +45,6 @@ function PasswordReset() {
         e.preventDefault();
         setPasswordDoNotMatch(false);
         if(newPassword === verifyNewPassword) {
-            console.log('this is hit')
-            // const { token } = useParams();
             const body = { token: token, newPassword: newPassword }
             const url = `http://127.0.0.1:4000/auth/updatePassword`
             const options = {
@@ -59,8 +57,7 @@ function PasswordReset() {
             fetch(url, options)
                 .then(res => res.json())
                 .then(setIsPasswordUpdated(true))
-                .catch(err => console.log("Error: ", err))
-
+                
         } else {
             setPasswordDoNotMatch(true);
         }

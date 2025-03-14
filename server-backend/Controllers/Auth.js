@@ -37,7 +37,6 @@ router.post("/register", async (req, res) => {
 })
 
 router.post("/login", async (req, res) => {
-    console.log('login route hit')
     try {
         const { userName, password } = req.body;
 
@@ -54,7 +53,6 @@ router.post("/login", async (req, res) => {
         const token = jwt.sign(
             { _id: foundUser._id },
             JWT_KEY,
-            //todo change to longer 
             { expiresIn: 60 * 60 * 24 * 7 }
         )
 
@@ -64,7 +62,6 @@ router.post("/login", async (req, res) => {
             token
         })
     } catch(err) {
-        console.log(err)
         res.status(500).json({
             message: err.message
         })

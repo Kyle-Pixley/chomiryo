@@ -57,17 +57,16 @@ function Auth({ updateLocalStorage }) {
 
             if(!response.ok) {
                 const errorData = await response.json();
-                console.log("this is the error data", errorData);
-                throw new Error(errorData.message);
+                throw new Error(errorData.message || "Invalid Login Credentials");
             }
 
             const data = await response.json();
             updateLocalStorage(data.token);
             setErrorMessage("");
+            setIsError(false);
         } catch (err) {
             setIsError(true);
             setErrorMessage(err.message);
-            console.error(err.message);
         }
     };
 
