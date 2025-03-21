@@ -38,13 +38,20 @@ function FrontPage({ logout, postRecipe, setPostRecipe, viewingRecipePage, setVi
         logout();
         navigate('/');
     }
+    //returns user to the page that is the list of the recipes that the user sees when they first login. (The main page)
+    const handleBannerTitleClick = () => {
+        navigate('/')
+        if(postRecipe) {
+            setPostRecipe(false);
+        }
+    }
 
     
   return (
     <div id='front-page-component'>
         <div id='top-banner-background'>
             <div id='top-banner'
-                onClick={() => navigate('/')}>CHOMIRYO</div>
+                onClick={() => handleBannerTitleClick()}>CHOMIRYO</div>
                 <div id='top-banner-post-logout-parent'>
                 <p 
                     id='create-recipe-button'

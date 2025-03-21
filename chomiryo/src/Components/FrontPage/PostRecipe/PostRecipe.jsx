@@ -14,12 +14,10 @@ function PostRecipe({ setPostCreated }) {
     const addIngredient = e => {
         e.preventDefault(); 
         setIngredients([...ingredients, '']);
-        console.log(ingredients);
     }
     const addSteps = e => {
         e.preventDefault();
         setRecipeSteps([...recipeSteps, '']);
-        console.log(recipeSteps);
     }
     const deleteLastIngredient = e => {
         e.preventDefault();
@@ -67,8 +65,7 @@ function PostRecipe({ setPostCreated }) {
                     "Content-type" : "image/png"
                 },
                 body: recipePhoto
-            }).then(res => console.log(res));
-            console.log(uploadUrl)
+            }).then(res => console.log(res.ok));
             const imgUrl = uploadUrl.split("?")[0];
             recipePhotoUrl = imgUrl;
         };
@@ -175,9 +172,9 @@ function PostRecipe({ setPostCreated }) {
                 name='my-file'
                 id='file-upload'
                 accept='.jpeg, .jpg, .png, webp'
-                onChange={e => {
+                onChange={e =>
                     setRecipePhoto(e.target.files[0])
-                    console.log(e)}}/>
+                    }/>
             : <div id='recipe-photo-preupload-button-parent'>
                 <img 
                     src={URL.createObjectURL(recipePhoto)}

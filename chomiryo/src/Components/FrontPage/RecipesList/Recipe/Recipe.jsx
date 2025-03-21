@@ -153,6 +153,8 @@ function Recipe({ viewingRecipePage }) {
             setEditingRecipe(false);
         };
 
+
+        //todo add a delete to the photo in the s3 bucket
         //deletes recipe/post from database
         const handleDeleteRecipe = () => {
             const id = singleRecipe._id;
@@ -198,7 +200,7 @@ function Recipe({ viewingRecipePage }) {
                             onChange={e => {
                                 setRecipePhoto(e.target.files[0])
                                 setPhotoChanged(true)
-                                console.log(e)}} />
+                                }} />
                     </div>
                 ) : (
                     null

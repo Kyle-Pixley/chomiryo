@@ -2,6 +2,7 @@ const router = require("express").Router();
 const Post = require("../Models/Post");
 const addRating = require("../Middlewares/ratingMiddleware");
 const sessionValidation = require("../Middlewares/Session");
+const AWS = require("aws-sdk");
 
 router.post("/create", sessionValidation, async (req, res) => {
     try {
@@ -136,15 +137,41 @@ router.post('/rate/:postId', sessionValidation, async (req, res) => {
     }
 });
 
+
+AWS.config.update({
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    region: "us-east-2"
+})
+const s3 = new AWS.S3();
+
 router.delete("/delete/:id", sessionValidation, async (req, res) => {
     try {
         const { id: _id } = req.params;
-        const deletedOne = await Post.findByIdAndDelete({ _id });
+
+        const recipe = await Post.findById(_id);
+
+        if (!recipe) {
+            return res.status(404).json({ message: "Recipe not found"});
+        }
+
+        if(recipe.recipePhoto) {
+            const s3Key = recipe.recipePhoto.split(".amazonaws.com/")[1];
+
+            await s3.deleteObject({
+                Bucket: process.env.AWS_BUCKET_NAME,
+                Key: s3Key,
+            }).promise();
+        }
+
+        const deletedOne = await Post.findByIdAndDelete( _id );
+
         if (!deletedOne) throw Error("Recipe Not Found");
         res.status(200).json({
             message: 'Recipe Successfully deleted',
             deletedOne
         })
+
     } catch(err) {
         res.status(500).json({
             message: err

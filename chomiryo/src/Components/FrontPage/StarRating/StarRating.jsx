@@ -145,7 +145,6 @@ function StarRating({ recipeRating, viewingRecipePage, recipeId }) {
         }
 
     const handleStarClick = (rating) => {
-        console.log(recipeId, ':', rating)
         const body = {rating};
 
         const url = `http://127.0.0.1:4000/post/rate/${recipeId}`;
@@ -159,7 +158,6 @@ function StarRating({ recipeRating, viewingRecipePage, recipeId }) {
         }
         fetch(url, options)
             .then(res => res.json())
-            .then(data => console.log(data))
             .then(setRatingGiven(true))
             .catch(err => console.error("error:", err))
     }

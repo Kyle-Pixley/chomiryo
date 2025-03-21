@@ -25,7 +25,6 @@ function RecipeList({ viewingRecipePage }) {
       fetch(url,options)
         .then(res => res.json())
         .then( data => {
-          console.log("Fetched Data", data)
           setAllRecipes(data)
         })
         .catch(err => err.message)
@@ -49,10 +48,6 @@ function RecipeList({ viewingRecipePage }) {
   const handleRecipeClick = (recipeId) => {
     navigate('/recipe', { state: { recipeId }});
   }
-
-  useEffect(() => {
-    allRecipes.forEach((recipe) => console.log(recipe.recipePhoto, 'here'))
-  }, [])
 
   return (
     <div id='recipe-list-component'>

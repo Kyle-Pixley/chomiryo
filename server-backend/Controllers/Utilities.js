@@ -12,6 +12,8 @@ router.get("/s3-url", async (req, res) => {
             message: `S3 Error: ${err}`
         })
     }
-})
+});
+
+
 
 module.exports = router;
