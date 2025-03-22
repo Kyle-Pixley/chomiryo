@@ -11,6 +11,7 @@ function PostRecipe({ setPostCreated }) {
     const [ instructions, setInstructions ] = useState({ingredients:[ingredients],recipeSteps:[recipeSteps]});
     const textareaRef = useRef(null);
 
+    //these add another array value to add to the end of the original array
     const addIngredient = e => {
         e.preventDefault(); 
         setIngredients([...ingredients, '']);
@@ -19,6 +20,7 @@ function PostRecipe({ setPostCreated }) {
         e.preventDefault();
         setRecipeSteps([...recipeSteps, '']);
     }
+    //these delete the last array value that was added (although the arrays default has only one value and that can also be deleted)
     const deleteLastIngredient = e => {
         e.preventDefault();
         setIngredients(prevIngredients => prevIngredients.slice(0, -1));
@@ -27,6 +29,8 @@ function PostRecipe({ setPostCreated }) {
         e.preventDefault();
         setRecipeSteps(prevRecipeSteps => prevRecipeSteps.slice(0,-1));
     }
+
+    //these update the array with the new value that the user has changed and stages the changes to be ready for updating 
     const handleIngredientChange = (i,e) => {
         const newIngredients = [...ingredients];
         newIngredients[i] = e.target.value;
@@ -37,6 +41,8 @@ function PostRecipe({ setPostCreated }) {
         newRecipeSteps[i] = e.target.value;
         setRecipeSteps(newRecipeSteps)
     }
+
+    // this give the ingredients and recipeSteps useStates the value of ingredients and recipeSteps from the database
     useEffect(() => {
         setInstructions({ingredients: ingredients, steps: recipeSteps})
     }, [ingredients, recipeSteps]);
@@ -48,6 +54,7 @@ function PostRecipe({ setPostCreated }) {
         textarea.style.height = `${textarea.scrollHeight}px`
     }
     
+    // submits the new post to the database 
     const handlePostSubmit = async e => {
         e.preventDefault();
 
@@ -56,6 +63,7 @@ function PostRecipe({ setPostCreated }) {
 
         let recipePhotoUrl = "";
 
+        // if the user includes a photo this adds another fetch to upload photo to the aws s3 bucket
         if (recipePhoto) {
             const uploadUrl = await fetch(s3Url).then(res => res.json());
 
@@ -108,6 +116,7 @@ function PostRecipe({ setPostCreated }) {
                 className='post-recipe-labels'>
                     Ingredients
             </label>
+
             { ingredients.map((ingredient, i) => (
                     <input
                         key={i}
@@ -118,6 +127,7 @@ function PostRecipe({ setPostCreated }) {
                         placeholder={`Ingredient #${i+1}`}>
                     </input>
             ))}
+
             <div id='add-delete-ingredients-parent'>
                 <button 
                     id='add-ingredients-input-button'
@@ -136,6 +146,7 @@ function PostRecipe({ setPostCreated }) {
                 className='post-recipe-labels' >
                     Steps
             </label>
+
             { recipeSteps.map((steps, i) => (
                 <textarea
                     rows={2}
@@ -149,6 +160,7 @@ function PostRecipe({ setPostCreated }) {
                     placeholder={`Step #${i+1}`}>
                 </textarea>
             ))}
+            
             <div id='add-delete-steps-parent'>
                 <button
                     id='add-steps-input-button'
