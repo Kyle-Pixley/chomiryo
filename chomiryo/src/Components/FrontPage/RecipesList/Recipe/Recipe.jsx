@@ -47,7 +47,7 @@ function Recipe({ viewingRecipePage }) {
                     "authorization" : localStorage.getItem("token")
                 })
             }
-            fetch(url,options)
+            fetch(url,options) 
                 .then(res => res.json())
                 .then(data => setUploadedBy(data))
                 .catch(err => err.message)
