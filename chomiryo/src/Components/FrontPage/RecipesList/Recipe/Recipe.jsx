@@ -173,6 +173,7 @@ function Recipe({ viewingRecipePage }) {
             .then(setRecipeDeleted(true))
         }
 
+        //if 3 seconds has elapsed this communicates to the user that the recipe has probably been deleted
         useEffect(() => {
             setTimeout(() => {
                 setLoadingOrDeleted('Recipe has been removed')

@@ -17,6 +17,7 @@ function PasswordReset() {
     const token = queryParams.get('token');
     const navigate = useNavigate();
 
+    //handles sending the user a email to there email in the user model that has a link to update there password
     const handleResetPasswordButton = e => {
         e.preventDefault();
     const url = `http://127.0.0.1:4000/email/forgot-password`;
@@ -41,6 +42,7 @@ function PasswordReset() {
         } else setLinkFromEmail(false);
     }, [])
 
+    //handle updating the password to the user model in the database
     const handleNewPasswordSubmit = e => {
         e.preventDefault();
         setPasswordDoNotMatch(false);
@@ -63,6 +65,7 @@ function PasswordReset() {
         }
     };
 
+    
     const displayLinkNotSent = () => {
         return (
             <form id='reset-password-form'>

@@ -22,6 +22,7 @@ function Auth({ updateLocalStorage }) {
         setPassword("");
     };
 
+    // toggles an extra input if the user is registering an account for the first time rather than just logging in to an existing account
     const register = () => login ? null : (
         <>
             <input
@@ -35,6 +36,7 @@ function Auth({ updateLocalStorage }) {
         </>
     )
 
+    //handle submitting the user login or register based on the useState of login
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -70,6 +72,7 @@ function Auth({ updateLocalStorage }) {
         }
     };
 
+    //simplifies the error code of E11000 which means the e-mail used does not exist also if the password is wrong than the button pops up that take the user to the forgot password page which the user can change there password if they choose
     const errorMessageSimple = () => {
         if (errorMessage.slice(0,6) === 'E11000') {
             return 'Please use a valid E-mail'
@@ -85,6 +88,7 @@ function Auth({ updateLocalStorage }) {
         )
     };
 
+    //navigates to the '/resetPassword' page where the user can change there password
     const handleForgotPassword = () => {
         navigate('/resetPassword');
     };

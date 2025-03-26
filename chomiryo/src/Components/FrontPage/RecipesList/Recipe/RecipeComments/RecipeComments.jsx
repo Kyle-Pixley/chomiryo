@@ -8,7 +8,7 @@ function RecipeComments({ recipeId }) {
     const [ commentList, setCommentList ] = useState([]);
     const [ numberOfComments, setNumberOfComments ] = useState(-10);
 
-    //post new comment
+    //post new comment to the database
     const handleCommentSubmit = async e => {
         e.preventDefault();
         const body = { body: newComment };

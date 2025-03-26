@@ -16,7 +16,7 @@ function StarRating({ recipeRating, viewingRecipePage, recipeId }) {
     const [ mouseLeave, setMouseLeave ] = useState(false);
     const [ ratingGiven, setRatingGiven ] = useState(false);
 
-    
+    //returns a different set of images depending on what the actual rating of the recipe is
     useEffect(() => {
         if (recipeRating > 0 && recipeRating < 1) {
             //half star
@@ -98,6 +98,7 @@ function StarRating({ recipeRating, viewingRecipePage, recipeId }) {
         }
     }, [mouseLeave, recipeRating]) 
 
+    //returns a different set of images depending on where the users mouse is currently hovering, but only when the mouse is hovering over the images themselves 
     const onMouseHover = (starNumber) => {
         if(viewingRecipePage){
 
@@ -144,6 +145,7 @@ function StarRating({ recipeRating, viewingRecipePage, recipeId }) {
             }
         }
 
+    //handles hitting the endpoint on the server to change what the average rating of the recipe is when the user clicks on one of the star images to submit there rating
     const handleStarClick = (rating) => {
         const body = {rating};
 

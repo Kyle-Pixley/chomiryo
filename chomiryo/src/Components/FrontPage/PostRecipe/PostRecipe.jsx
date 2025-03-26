@@ -54,7 +54,7 @@ function PostRecipe({ setPostCreated }) {
         textarea.style.height = `${textarea.scrollHeight}px`
     }
     
-    // submits the new post to the database 
+    // submits the new post to the database
     const handlePostSubmit = async e => {
         e.preventDefault();
 

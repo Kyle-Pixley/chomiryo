@@ -17,6 +17,7 @@ function FrontPage({ logout, postRecipe, setPostRecipe, viewingRecipePage, setVi
         setViewingRecipePage(location.pathname === '/recipe');
     }, [location])
 
+    //displays a different component depending on what useStates are true
     const displayFrontPage = () => {
         if(postCreated) {
             return <PostCreated 
@@ -30,10 +31,12 @@ function FrontPage({ logout, postRecipe, setPostRecipe, viewingRecipePage, setVi
                         viewingRecipePage={viewingRecipePage}/>
     };
 
+    //makes sure the url navigate back to '/' after a recipe is posted for home page
     const handlePostRecipeClick = () => {
         setPostRecipe(!postRecipe);
         navigate('/');
     };
+    //handles triggering the logout() function and navigate back to '/' just in case user is not on the home page 
     const handleLogout = () => {
         logout();
         navigate('/');
