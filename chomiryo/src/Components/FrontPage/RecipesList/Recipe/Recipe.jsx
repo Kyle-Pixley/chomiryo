@@ -38,6 +38,7 @@ function Recipe({ viewingRecipePage }) {
             .catch(err => err.message)
     }, []);
 
+    //grabs the username of the person who originally posted the recipe and assigns it to uploadedBy useState 
     useEffect(() => {
         if(singleRecipe.user) {
             const url = `http://10.0.0.23:4000/auth/${singleRecipe.user}`
@@ -54,6 +55,7 @@ function Recipe({ viewingRecipePage }) {
         }
     }, [singleRecipe])
 
+    //assigns recipe ingredients and steps to there useStates of ingredientsList and stepsList
     useEffect(() => {
         if(singleRecipe && singleRecipe.instructions) {
             setIngredientsList(singleRecipe.instructions.ingredients)
@@ -100,12 +102,14 @@ function Recipe({ viewingRecipePage }) {
             setIngredientsList(updatedIngredients);
         };
 
+        //assigns the photo in the recipe to recipePhoto useState
         useEffect(() => {
             if(singleRecipe) {
                 setRecipePhoto(singleRecipe.recipePhoto)
             }
         }, [singleRecipe])
 
+        // if any changes has been made by the user to change the recipe then the changes get assigned to updatedPostBody 
         const handleSubmitRecipeUpdate = async e => {
             let updatedPostBody = {}
             updatedPostBody._id = singleRecipe._id;
@@ -123,6 +127,7 @@ function Recipe({ viewingRecipePage }) {
                 updatedPostBody.instructions.steps = stepsList
             } else updatedPostBody.instructions.steps = singleRecipe.instructions.steps
 
+            //if the user changes the photo this makes sure the new photo gets uploaded to the s3 bucket
             if(photoChanged) {
                 const s3Url = "http://10.0.0.23:4000/utilities/s3-url";
                 
@@ -139,6 +144,7 @@ function Recipe({ viewingRecipePage }) {
                 const imageUrl = uploadUrl.split("?")[0];
             };
 
+            // hits the fetch to update the post with the changes made by the user
             fetch(`http://10.0.0.23:4000/post/updatepost/${singleRecipe._id}`, {
                 method: "PUT",
                 headers: {
@@ -153,8 +159,6 @@ function Recipe({ viewingRecipePage }) {
             setEditingRecipe(false);
         };
 
-
-        //todo add a delete to the photo in the s3 bucket
         //deletes recipe/post from database
         const handleDeleteRecipe = () => {
             const id = singleRecipe._id;
