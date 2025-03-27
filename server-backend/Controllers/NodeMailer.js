@@ -14,24 +14,6 @@ const transporter = nodemailer.createTransport({
         pass: process.env.PASS,
     },
 });
-// todo test route ----------------------
-router.post('/send-email', async (req,res) => {
-    const { to, text } = req.body;
-    const subject = "Reset Chomiryo Account Password"
-    try {
-        await transporter.sendMail({
-            from: process.env.EMAIL,
-            to,
-            subject,
-            text,
-        });
-        res.json({ success: true, message: 'email sent'});
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({ success: false, message: 'Email failed to send'})
-    }
-});
-//todo -------------------------------------
 
 // find user by email and send a password reset link
 router.post('/forgot-password', async (req, res) => {

@@ -4,6 +4,7 @@ const addRating = require("../Middlewares/ratingMiddleware");
 const sessionValidation = require("../Middlewares/Session");
 const AWS = require("aws-sdk");
 
+//saves a new recipe(post) to the database that is created on the front end by the user
 router.post("/create", sessionValidation, async (req, res) => {
     try {
         const { recipePhoto, title, instructions } = req.body;
@@ -31,7 +32,7 @@ router.post("/create", sessionValidation, async (req, res) => {
     }
 });
 
-//update post and find the post by id
+//update post found by id
 router.put("/updatepost/:id", sessionValidation, async (req, res) => {
     try {
         const postId = req.params.id;
@@ -145,6 +146,7 @@ AWS.config.update({
 })
 const s3 = new AWS.S3();
 
+//finds and deletes a post found by id, also deletes the photo from the aws s3 bucket
 router.delete("/delete/:id", sessionValidation, async (req, res) => {
     try {
         const { id: _id } = req.params;

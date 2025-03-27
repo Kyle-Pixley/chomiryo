@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const SALT = Number(process.env.SALT);
 const JWT_KEY = process.env.JWT_KEY;
 
+//register new account adding the users email, user name, and password (hashed using bcrypt) to the database
 router.post("/register", async (req, res) => {
     try {
         const { email, userName, password } = req.body;
@@ -36,6 +37,7 @@ router.post("/register", async (req, res) => {
     }
 })
 
+//logs in a existing user with the users user name, and password(hashed using bcrypt)
 router.post("/login", async (req, res) => {
     try {
         const { userName, password } = req.body;
@@ -68,6 +70,7 @@ router.post("/login", async (req, res) => {
     }
 });
 
+//saves new password to the database 
 router.put('/updatePassword', async (req, res) => {
     try {
         
