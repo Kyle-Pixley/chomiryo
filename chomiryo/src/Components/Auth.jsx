@@ -141,7 +141,7 @@ function Auth({ updateLocalStorage }) {
             <h1 id='auth-title'>CHOMIRYO
                 
             </h1>
-        
+            {/* {displayAuthPage()} */}
         <Routes>
             <Route
                 path='/'

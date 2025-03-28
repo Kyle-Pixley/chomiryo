@@ -31,7 +31,6 @@ function PasswordReset() {
     }
     fetch(url, options)
         .then(res => res.json())
-        .then(data => console.log(data.message))
         .then(setIsEmailSent(true))
         .catch(err => console.log(err))
     };
@@ -81,6 +80,9 @@ function PasswordReset() {
                 onClick={e => handleResetPasswordButton(e)}>
                 Reset Password
             </button>
+            { isEmailSent
+                ? <h4 id='email-sent-message'>E-mail Sent</h4>
+                : null }
         </form>
         )
     };

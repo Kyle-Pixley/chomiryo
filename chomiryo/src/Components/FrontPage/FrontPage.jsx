@@ -64,6 +64,7 @@ function FrontPage({ logout, postRecipe, setPostRecipe, viewingRecipePage, setVi
                     onClick={() => handleLogout()}>Logout</p>
                 </div>
             </div>
+            {/* {displayFrontPage()} */}
         <Routes>
             <Route
                 path='/'

@@ -1,9 +1,11 @@
-  import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { jwtDecode } from 'jwt-decode';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Routes, Route } from 'react-router-dom';
 import Auth from './Components/Auth';
 import FrontPage from './Components/FrontPage/FrontPage';
 import './App.css';
+import Recipe from './Components/FrontPage/RecipesList/Recipe/Recipe';
+import PasswordReset from './Components/PasswordReset/PasswordReset';
 
 function App() {
 
@@ -73,7 +75,11 @@ function App() {
 
   return (
     <>
-      {handleLoggedIn()}
+      {/* {handleLoggedIn()} */}
+        <Routes>
+          <Route path='/*' element={handleLoggedIn()} />
+          <Route path='/resetPassword' element={<PasswordReset />} />
+        </Routes>
     </>
   )
 }
