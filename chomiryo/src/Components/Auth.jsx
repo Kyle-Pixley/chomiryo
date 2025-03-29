@@ -74,8 +74,11 @@ function Auth({ updateLocalStorage }) {
 
     //simplifies the error code of E11000 which means the e-mail used does not exist also if the password is wrong than the button pops up that take the user to the forgot password page which the user can change there password if they choose
     const errorMessageSimple = () => {
+        console.log(errorMessage)
         if (errorMessage.slice(0,6) === 'E11000') {
             return 'Please use a valid E-mail'
+        } else if (errorMessage.slice(88,106) === 'userName_1 dup key'){
+            return 'User Name Already Taken'
         } else return (
             <div id='error-message-parent'>
                 <p>{errorMessage}</p>
@@ -129,7 +132,10 @@ function Auth({ updateLocalStorage }) {
                     >{ login ? "SIGN IN" : "REGISTER" }</button>
             </form>
             { isError 
-                ? errorMessageSimple()
+                ? 
+                <p id='error-message-simple'>
+                    {errorMessageSimple()}
+                </p>
                 : null }
         </div>
         )
