@@ -36,6 +36,7 @@ console.log('forgot password route hit')
             to: email,
             subject: 'Password Reset',
             text: resetLink,
+            html: `<a href=${resetLink}>Reset Password</a>`
         });
         res.status(200).json({ message: 'reset link sent'});
     } catch (err) {

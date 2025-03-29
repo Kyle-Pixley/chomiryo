@@ -17,8 +17,6 @@ router.post("/create/:postId", sessionValidation, async (req, res) => {
 
         const newComment = await new Comment(commentData);
 
-        console.log(newComment);
-
         await newComment.save();
 
         await newComment.populate("user");

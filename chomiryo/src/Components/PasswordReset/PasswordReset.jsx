@@ -18,7 +18,6 @@ function PasswordReset() {
     const navigate = useNavigate();
 
     //handles sending the user a email to there email in the user model that has a link to update there password
-    //! some reason this stopped working. It Works on the back end though
     const handleResetPasswordButton = e => {
         e.preventDefault();
     const url = `http://127.0.0.1:4000/email/forgot-password`;
