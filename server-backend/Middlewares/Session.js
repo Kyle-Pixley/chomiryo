@@ -30,7 +30,6 @@ const sessionValidation = async (req, res, next) => {
         req.user = findUser;
         next();
     } catch (err) {
-        console.error("Session validation error:", err);
         res.status(500).json({ message: "Internal server error" });
     }
 };

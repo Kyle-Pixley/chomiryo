@@ -11,7 +11,6 @@ router.post("/create", sessionValidation, async (req, res) => {
         const rating = 0;
 
         if (!title || !instructions.ingredients || !instructions.steps) throw Error("Please provide all information for the recipe.");
-        console.log(req.user)
         const newPost = new Post({
             user: req.user.id,
             recipePhoto,
@@ -27,7 +26,6 @@ router.post("/create", sessionValidation, async (req, res) => {
             savedPost
         });
     } catch (err) {
-        console.log(err);
         res.status(500).json({ message: `Could not create new recipe: ${err}`});
     }
 });
@@ -52,14 +50,12 @@ router.put("/updatepost/:id", sessionValidation, async (req, res) => {
 
         res.status(200).json(updatedPost);
     } catch (err) {
-        console.log(err);
         res.status(500).json({ message: "Error could not update recipe"})
     }
 });
 
 //search post based on ingredients and return 24 of them in rating descending order
 router.get('/search', sessionValidation, async (req, res) => {
-    console.log('search endpoint hit')
     const { searchQuery } = req.query;
 
     if (!searchQuery) {
@@ -75,7 +71,6 @@ router.get('/search', sessionValidation, async (req, res) => {
         
         res.status(200).json(results);
     } catch (error) {
-        console.error("Error fetching posts:" , error);
         res.status(500).json({ error: "Internal server error" });
     }
 });
@@ -93,7 +88,6 @@ router.get('/', sessionValidation, async (req, res) => {
         res.status(200).json(posts)
 
     } catch(err) {
-        console.log(err);
         res.status(500).json({ message: `Error: Could not get Posts`})
     }
 });
@@ -111,7 +105,6 @@ router.get('/:id', sessionValidation, async (req, res) => {
 
         res.json(recipe);
     } catch (err) {
-        console.error(err);
         res.status(500).json({ error: 'Server Error'});
     }
 });
@@ -133,7 +126,6 @@ router.post('/rate/:postId', sessionValidation, async (req, res) => {
             averageRating: updatedAverageRating
         });
     } catch (err) {
-        console.error(err);
         res.status(500).json({ message: `Could not update rating: ${err.message}`})
     }
 });

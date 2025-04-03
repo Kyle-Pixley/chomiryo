@@ -19,10 +19,8 @@ router.post("/register", async (req, res) => {
         const token = jwt.sign(
             { _id: newUser._id },
             JWT_KEY,
-            // todo change to longer
-            { expiresIn: 60 * 60 * 24 * 7 }
+            { expiresIn: 60 * 60 * 24 * 365 }
         )
-        console.log(newUser);
 
         res.status(201).json({
             message: `User Created`,
@@ -30,7 +28,6 @@ router.post("/register", async (req, res) => {
             token
         })
     } catch(err) {
-        console.log(err)
         res.status(500).json({
             message: `message: ${err}`
         })
@@ -55,7 +52,7 @@ router.post("/login", async (req, res) => {
         const token = jwt.sign(
             { _id: foundUser._id },
             JWT_KEY,
-            { expiresIn: 60 * 60 * 24 * 7 }
+            { expiresIn: 60 * 60 * 24 * 365 }
         )
 
         res.status(200).json({
@@ -95,7 +92,6 @@ router.put('/updatePassword', async (req, res) => {
         res.status(200).json({ message: 'Password Updated'});
 
     } catch (err) {
-        console.log(err);
         res.status(500).json({ message: "Error could not update password"})
     }
 });
@@ -116,7 +112,6 @@ router.post("/find-email", async (req, res) => {
             foundUser
         })
     } catch(err) {
-        console.log(err)
         res.status(500).json({
             message: err.message
         })

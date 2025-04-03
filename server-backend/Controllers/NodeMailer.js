@@ -19,7 +19,6 @@ const transporter = nodemailer.createTransport({
 router.post('/forgot-password', async (req, res) => {
     const { email } = req.body;
     const secretKey = process.env.JWT_KEY;
-console.log('forgot password route hit')
     try {
         const user = await User.findOne({ email });
         if (!user) return res.status(404).json({ message: 'User not found'});
@@ -40,7 +39,6 @@ console.log('forgot password route hit')
         });
         res.status(200).json({ message: 'reset link sent'});
     } catch (err) {
-        console.log(err);
         res.status(500).json({ message: 'server error'})
     }
 });
@@ -57,7 +55,6 @@ router.get('/reset-password', async (req,res) => {
 
         res.status(200).json({ message: 'Token is valid' });
     } catch (err) {
-        console.log(err);
         res.status(400).json({ message: 'Invalid or expired token'});
     }
 });
@@ -79,7 +76,6 @@ router.post('./reset-password', async (req,res) => {
 
         res.status(200).json({ message: 'Password updated'});
     } catch(err) {
-        console.log(err);
         res.status(400).json({ message: 'Invalid or expired token'});
     }
 });

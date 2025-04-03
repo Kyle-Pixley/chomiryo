@@ -45,7 +45,6 @@ router.get('/:postId', sessionValidation, async (req, res) => {
             message: 'comments received'
         });
     } catch(err) {
-        console.log(err);
         res.status(500).json({ message: `error could not get comments`})
     }
 });
