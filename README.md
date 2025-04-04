@@ -15,7 +15,7 @@ This is my fullstack web application created with MERN (MongoDB, Express.js, Rea
     JWT for user authentication 
     Nodemailer for password reset
 
-## ENV Example 
+## ENV Back-end Example 
     HOST = 0.0.0.0
     PORT = 4000
     DB_URL
