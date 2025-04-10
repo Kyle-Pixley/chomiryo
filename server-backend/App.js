@@ -19,7 +19,10 @@ const utilitiesController = require("./Controllers/Utilities");
 const sessionValidation = require("./Middlewares/Session");
 
 
-app.use(cors());
+app.use(cors({
+    origin: "http://ec2-18-221-187-170.us-east-2.compute.amazonaws.com",
+    credentials: true
+}));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
