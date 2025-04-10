@@ -149,7 +149,7 @@ function StarRating({ recipeRating, viewingRecipePage, recipeId }) {
     const handleStarClick = (rating) => {
         const body = {rating};
 
-        const url = `http://127.0.0.1:4000/post/rate/${recipeId}`;
+        const url = `/post/rate/${recipeId}`;
         const options = {
             method: "POST",
             body: JSON.stringify(body),

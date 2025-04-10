@@ -25,7 +25,7 @@ function Recipe({ viewingRecipePage }) {
 
     //fetches the single post based on the recipe._id aka recipeId
     useEffect(() => {
-        const url = `http://10.0.0.23:4000/post/${recipeId}`
+        const url = `/post/${recipeId}`
         const options = {
             headers: new Headers({
                 "Content-Type" : "application/json",
@@ -41,7 +41,7 @@ function Recipe({ viewingRecipePage }) {
     //grabs the username of the person who originally posted the recipe and assigns it to uploadedBy useState 
     useEffect(() => {
         if(singleRecipe.user) {
-            const url = `http://10.0.0.23:4000/auth/${singleRecipe.user}`
+            const url = `/auth/${singleRecipe.user}`
             const options = {
                 headers: new Headers({
                     "Content-Type" : "application/json",
@@ -129,7 +129,7 @@ function Recipe({ viewingRecipePage }) {
 
             //if the user changes the photo this makes sure the new photo gets uploaded to the s3 bucket
             if(photoChanged) {
-                const s3Url = "http://10.0.0.23:4000/utilities/s3-url";
+                const s3Url = "/utilities/s3-url";
                 
                 const uploadUrl = await fetch(s3Url).then(res => res.json());
                 
@@ -145,7 +145,7 @@ function Recipe({ viewingRecipePage }) {
             };
 
             // hits the fetch to update the post with the changes made by the user
-            fetch(`http://10.0.0.23:4000/post/updatepost/${singleRecipe._id}`, {
+            fetch(`/post/updatepost/${singleRecipe._id}`, {
                 method: "PUT",
                 headers: {
                     'Content-Type' : "application/json",
@@ -162,7 +162,7 @@ function Recipe({ viewingRecipePage }) {
         //deletes recipe/post from database
         const handleDeleteRecipe = () => {
             const id = singleRecipe._id;
-            fetch(`http://10.0.0.23:4000/post/delete/${id}`, {
+            fetch(`/post/delete/${id}`, {
                 method: "DELETE",
                 headers: new Headers({
                     "Content-Type" : "application/json",

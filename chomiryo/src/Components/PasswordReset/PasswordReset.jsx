@@ -20,7 +20,7 @@ function PasswordReset() {
     //handles sending the user a email to there email in the user model that has a link to update there password
     const handleResetPasswordButton = e => {
         e.preventDefault();
-    const url = `http://127.0.0.1:4000/email/forgot-password`;
+    const url = `/email/forgot-password`;
     const options = {
         method: "POST",
         body: JSON.stringify({ email }),
@@ -47,7 +47,7 @@ function PasswordReset() {
         setPasswordDoNotMatch(false);
         if(newPassword === verifyNewPassword) {
             const body = { token: token, newPassword: newPassword }
-            const url = `http://127.0.0.1:4000/auth/updatePassword`
+            const url = `/auth/updatePassword`
             const options = {
                 method: "PUT",
                 body: JSON.stringify(body),

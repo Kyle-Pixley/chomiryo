@@ -13,7 +13,7 @@ function RecipeComments({ recipeId }) {
         e.preventDefault();
         const body = { body: newComment };
         
-        const url = `http://127.0.0.1:4000/comment/create/${recipeId}`;
+        const url = `/comment/create/${recipeId}`;
 
         const options = {
             method: "POST",
@@ -39,7 +39,7 @@ function RecipeComments({ recipeId }) {
     useEffect(() => {
         const fetchComments = async () => {
 
-            const url = `http://127.0.0.1:4000/comment/${recipeId}`;
+            const url = `/comment/${recipeId}`;
             const options = {
                 method: "GET",
                 headers: new Headers({
@@ -54,7 +54,7 @@ function RecipeComments({ recipeId }) {
                 
                 const commentWithUserName = await Promise.all(
                     data.comments.map(async comment => {
-                        const userRes = await fetch(`http://127.0.0.1:4000/auth/${comment.user}`);
+                        const userRes = await fetch(`/auth/${comment.user}`);
                         const userData = await userRes.json();
                         return {...comment, userName: userData.foundUser.userName };
                 })

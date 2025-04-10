@@ -41,8 +41,8 @@ function Auth({ updateLocalStorage }) {
         e.preventDefault();
 
         const url = login 
-            ? "http://10.0.0.23:4000/auth/login"
-            : "http://10.0.0.23:4000/auth/register";
+            ? "/auth/login"
+            : "/auth/register";
         
         const body = login 
             ? { userName, password }

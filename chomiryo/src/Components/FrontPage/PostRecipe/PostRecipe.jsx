@@ -58,8 +58,8 @@ function PostRecipe({ setPostCreated }) {
     const handlePostSubmit = async e => {
         e.preventDefault();
 
-        const url = "http://127.0.0.1:4000/post/create"
-        const s3Url = "http://127.0.0.1:4000/utilities/s3-url";
+        const url = "/post/create"
+        const s3Url = "/utilities/s3-url";
 
         let recipePhotoUrl = "";
 
